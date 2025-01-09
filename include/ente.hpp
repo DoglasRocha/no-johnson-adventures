@@ -1,0 +1,27 @@
+#pragma once
+#include "managers/graphic_manager.hpp"
+#include <memory>
+#include <libnop/framework.h>
+
+using namespace managers;
+
+class Ente : NOP::FBE
+{
+protected:
+    int id;
+    static std::weak_ptr<GraphicManager> ptrGM;
+
+public:
+    Ente();
+    virtual ~Ente();
+    virtual void run();
+    virtual void draw() = 0;
+    static void setGraphicManager(std::shared_ptr<GraphicManager> ptrGM);
+    virtual void setupEventHandling(
+        NOP::SharedAttribute<sf::Keyboard::Key> atKeyPressed,
+        NOP::SharedAttribute<sf::Keyboard::Key> atKeyReleased,
+        NOP::SharedAttribute<sf::Mouse::Button> atMouseButtonPressed,
+        NOP::SharedAttribute<sf::Mouse::Button> atMouseButtonReleased,
+        NOP::SharedAttribute<int> atMousePositionX,
+        NOP::SharedAttribute<int> atMousePositionY) = 0;
+};
