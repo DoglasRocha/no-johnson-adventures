@@ -9,7 +9,7 @@ class Ente : NOP::FBE
 {
 protected:
     int id;
-    static std::weak_ptr<GraphicManager> ptrGM;
+    static GraphicManager *ptrGM;
 
 public:
     Ente();
@@ -18,10 +18,10 @@ public:
     virtual void draw() = 0;
     static void setGraphicManager(std::shared_ptr<GraphicManager> ptrGM_);
     virtual void setupEventHandling(
-        NOP::SharedAttribute<sf::Keyboard::Key> atKeyPressed,
-        NOP::SharedAttribute<sf::Keyboard::Key> atKeyReleased,
-        NOP::SharedAttribute<sf::Mouse::Button> atMouseButtonPressed,
-        NOP::SharedAttribute<sf::Mouse::Button> atMouseButtonReleased,
-        NOP::SharedAttribute<int> atMousePositionX,
-        NOP::SharedAttribute<int> atMousePositionY) = 0;
+        NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
+        NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
+        NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,
+        NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonReleased,
+        NOP::SharedAttribute<int> &atMousePositionX,
+        NOP::SharedAttribute<int> &atMousePositionY) = 0;
 };

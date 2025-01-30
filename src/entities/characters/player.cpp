@@ -22,7 +22,7 @@ void Player::moveX()
 {
     sprite.move((float)velX, 0);
     x += velX;
-    ptrGM.lock()->centerWindow(x);
+    // ptrGM->centerWindow(x);
 
     // ????
     if (velX == 50 || velX == -50)
@@ -73,7 +73,7 @@ void Player::reset()
     y = 500;
     alive = true;
     sprite.setPosition(x, y);
-    ptrGM.lock()->centerWindow(x);
+    ptrGM->centerWindow(x);
 }
 
 void Player::resetScore()

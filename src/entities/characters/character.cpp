@@ -70,7 +70,7 @@ void Character::draw()
     if (!this->alive)
         return;
 
-    ptrGM.lock()->drawElement(sprite);
+    ptrGM->drawElement(sprite);
     // if (this->velX != 0)
     //     this->animate();
 }

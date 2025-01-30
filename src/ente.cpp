@@ -14,5 +14,5 @@ void Ente::run()
 
 void Ente::setGraphicManager(std::shared_ptr<GraphicManager> ptrGM_)
 {
-    ptrGM = ptrGM_;
+    ptrGM = &*ptrGM_;
 }

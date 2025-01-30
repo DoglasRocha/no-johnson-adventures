@@ -32,12 +32,12 @@ namespace entities::characters
         // Sprite *getSprite();
         RectangleShape *getSprite();
         virtual void setupEventHandling(
-            NOP::SharedAttribute<sf::Keyboard::Key> atKeyPressed,
-            NOP::SharedAttribute<sf::Keyboard::Key> atKeyReleased,
-            NOP::SharedAttribute<sf::Mouse::Button> atMouseButtonPressed,
-            NOP::SharedAttribute<sf::Mouse::Button> atMouseButtonReleased,
-            NOP::SharedAttribute<int> atMousePositionX,
-            NOP::SharedAttribute<int> atMousePositionY) = 0;
+            NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
+            NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
+            NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,
+            NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonReleased,
+            NOP::SharedAttribute<int> &atMousePositionX,
+            NOP::SharedAttribute<int> &atMousePositionY) = 0;
         std::string getDirection() const;
         void setDirection(const std::string direction);
         void setOriginToCenter();

@@ -16,12 +16,12 @@ Player1::~Player1()
 }
 
 void Player1::setupEventHandling(
-    NOP::SharedAttribute<sf::Keyboard::Key> atKeyPressed,
-    NOP::SharedAttribute<sf::Keyboard::Key> atKeyReleased,
-    NOP::SharedAttribute<sf::Mouse::Button> atMouseButtonPressed,
-    NOP::SharedAttribute<sf::Mouse::Button> atMouseButtonReleased,
-    NOP::SharedAttribute<int> atMousePositionX,
-    NOP::SharedAttribute<int> atMousePositionY)
+    NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
+    NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
+    NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,
+    NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonReleased,
+    NOP::SharedAttribute<int> &atMousePositionX,
+    NOP::SharedAttribute<int> &atMousePositionY)
 {
     RULE();
     LCONDITION();
@@ -58,7 +58,7 @@ void Player1::setupEventHandling(
     ACTION();
     INSTIGATE(
         METHOD(
-            this->setVelY(5);))
+            this->setVelY(-5);))
     END_ACTION;
 
     END_CONDITION;
@@ -71,7 +71,59 @@ void Player1::setupEventHandling(
     ACTION();
     INSTIGATE(
         METHOD(
-            this->setVelY(-5);))
+            this->setVelY(5);))
+    END_ACTION;
+
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atKeyReleased == sf::Keyboard::Key::A);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->setVelX(0);))
+    END_ACTION;
+
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atKeyReleased == sf::Keyboard::Key::D);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->setVelX(0);))
+    END_ACTION;
+
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atKeyReleased == sf::Keyboard::Key::W);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->setVelY(0);))
+    END_ACTION;
+
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atKeyReleased == sf::Keyboard::Key::S);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->setVelY(0);))
     END_ACTION;
 
     END_CONDITION;

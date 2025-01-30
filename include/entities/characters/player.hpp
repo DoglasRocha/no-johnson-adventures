@@ -20,12 +20,12 @@ namespace entities::characters
         Player();
         virtual ~Player();
         virtual void setupEventHandling(
-            NOP::SharedAttribute<sf::Keyboard::Key> atKeyPressed,
-            NOP::SharedAttribute<sf::Keyboard::Key> atKeyReleased,
-            NOP::SharedAttribute<sf::Mouse::Button> atMouseButtonPressed,
-            NOP::SharedAttribute<sf::Mouse::Button> atMouseButtonReleased,
-            NOP::SharedAttribute<int> atMousePositionX,
-            NOP::SharedAttribute<int> atMousePositionY) = 0;
+            NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
+            NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
+            NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,
+            NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonReleased,
+            NOP::SharedAttribute<int> &atMousePositionX,
+            NOP::SharedAttribute<int> &atMousePositionY) = 0;
         void collideX();
         virtual void moveX();
         void pushX(const int direction);
