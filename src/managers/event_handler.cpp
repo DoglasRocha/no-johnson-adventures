@@ -17,6 +17,60 @@ EventHandler::EventHandler()
 
     END_CONDITION;
     END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(this->atEventType == sf::Event::EventType::KeyPressed);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->atKeyPressed->SetValue(this->event.key.code, true);))
+    END_ACTION;
+
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(this->atEventType == sf::Event::EventType::KeyReleased);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->atKeyReleased->SetValue(this->event.key.code, true);))
+    END_ACTION;
+
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(this->atEventType == sf::Event::EventType::MouseButtonPressed);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->atMouseButtonPressed->SetValue(this->event.mouseButton.button, true);
+            this->atMousePositionX->SetValue(this->event.mouseButton.x, true);
+            this->atMousePositionY->SetValue(this->event.mouseButton.y, true);))
+    END_ACTION;
+
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(this->atEventType == sf::Event::EventType::MouseButtonReleased);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->atMouseButtonReleased->SetValue(this->event.mouseButton.button, true);))
+    END_ACTION;
+
+    END_CONDITION;
+    END_RULE;
 }
 
 EventHandler::~EventHandler()

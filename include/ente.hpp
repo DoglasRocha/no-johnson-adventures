@@ -16,7 +16,7 @@ public:
     virtual ~Ente();
     virtual void run();
     virtual void draw() = 0;
-    static void setGraphicManager(std::shared_ptr<GraphicManager> ptrGM);
+    static void setGraphicManager(std::shared_ptr<GraphicManager> ptrGM_);
     virtual void setupEventHandling(
         NOP::SharedAttribute<sf::Keyboard::Key> atKeyPressed,
         NOP::SharedAttribute<sf::Keyboard::Key> atKeyReleased,
