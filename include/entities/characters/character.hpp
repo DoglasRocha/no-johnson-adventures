@@ -1,10 +1,10 @@
 #pragma once
 #include "../entity.hpp"
-// #include "../../listas/lista_texturas.hpp"
+#include "../../lists/texture.hpp"
 #include <SFML/Graphics.hpp>
 #include <string>
 using namespace sf;
-// using namespace Listas;
+using namespace Lists;
 
 namespace entities::characters
 {
@@ -13,13 +13,12 @@ namespace entities::characters
     protected:
         int lives, jumps, attack;
         bool alive;
-        // Sprite sprite;
-        RectangleShape sprite;
-        // ListaTexturas listaTexturas;
-        // ListaTexturas::Node *noAtual;
+        Sprite sprite;
+        TextureList textures;
+        TextureList::Node *currentNode;
         std::string direction;
-        // Clock relogioAnimacao;
-        // const sf::Time tempoAnimacao;
+        Clock animationClock;
+        const sf::Time animationTick;
 
     public:
         Character();
@@ -29,8 +28,7 @@ namespace entities::characters
         void setJumps(const int jumps);
         int getJumps() const;
         Drawable *getDraw();
-        // Sprite *getSprite();
-        RectangleShape *getSprite();
+        Sprite *getSprite();
         virtual void setupEventHandling(
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
@@ -42,10 +40,10 @@ namespace entities::characters
         void setDirection(const std::string direction);
         void setOriginToCenter();
         void setThrust(const int thrust);
-        // void carregarTexturas(const std::string endereco, const int comeco, const int fim);
-        // void escalarSprite(const float fatorX, const float fatorY);
-        // void animar();
-        // void resetAnimacao();
+        void loadTextures(const std::string path, const int start, const int end);
+        void scaleSprite(const float xFactor, const float yFactor);
+        void animate();
+        void resetAnimation();
         void draw();
         virtual void collideX() = 0;
         virtual void collideY();

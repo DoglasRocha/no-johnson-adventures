@@ -1,8 +1,9 @@
 #include "../../../include/entities/characters/character.hpp"
+#include <sstream>
 
 using namespace entities::characters;
 
-Character::Character() : lives(0), jumps(0), attack(0), alive(true), direction("right")
+Character::Character() : lives(0), jumps(0), attack(0), alive(true), direction("right"), animationTick(sf::milliseconds(125))
 {
 }
 
@@ -35,7 +36,7 @@ Drawable *Character::getDraw()
     return &sprite;
 }
 
-RectangleShape *Character::getSprite()
+Sprite *Character::getSprite()
 {
     return &sprite;
 }
@@ -71,8 +72,8 @@ void Character::draw()
         return;
 
     ptrGM->drawElement(sprite);
-    // if (this->velX != 0)
-    //     this->animate();
+    if (this->velX != 0)
+        this->animate();
 }
 
 void Character::collideY()
@@ -93,7 +94,6 @@ void Character::sufferAttack(Character *character)
 
     lives -= character->getAttack();
     checkAlive();
-    // Implement logic for suffering an attack from another character
 }
 
 void Character::sufferAttack(int damage)
@@ -114,4 +114,47 @@ void Character::checkAlive()
 bool Character::getAlive() const
 {
     return alive;
+}
+
+void Character::loadTextures(const std::string path, const int start, const int end)
+{
+    Texture *texture;
+
+    for (int i = start; i <= end; i++)
+    {
+        std::stringstream buffer;
+        buffer << "../assets/" << path << i << ".png";
+        texture = new Texture();
+        if (!texture->loadFromFile(buffer.str()))
+        {
+            std::cerr << "Error loading texture" << std::endl;
+            exit(1);
+        }
+        else
+            this->textures.append(texture);
+    }
+}
+
+void Character::scaleSprite(const float xFactor, const float yFactor)
+{
+    sprite.setScale(xFactor, yFactor);
+    FloatRect bounds = sprite.getGlobalBounds();
+    x = bounds.left;
+    y = bounds.top;
+}
+
+void Character::animate()
+{
+    if (animationClock.getElapsedTime() > animationTick)
+    {
+        currentNode = currentNode->getNext();
+        sprite.setTexture(*currentNode->getData());
+        animationClock.restart();
+    }
+}
+
+void Character::resetAnimation()
+{
+    currentNode = textures.begin();
+    sprite.setTexture(*currentNode->getData());
 }

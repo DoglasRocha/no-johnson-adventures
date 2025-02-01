@@ -4,10 +4,14 @@ using namespace entities::characters;
 
 Player1::Player1()
 {
-    sprite = RectangleShape({100, 100});
-    sprite.setFillColor(Color::Green);
-    x = 700, y = 500;
+    loadTextures("sprites/cj/cjandar", 0, 6);
+    currentNode = textures.begin();
+    sprite.setTexture(*currentNode->getData());
+    x = 700,
+    y = 500;
     sprite.setPosition(x, y);
+    setOriginToCenter();
+    scaleSprite(3.0, 3.0);
 }
 
 Player1::~Player1()
@@ -30,8 +34,10 @@ void Player1::setupEventHandling(
     ACTION();
     INSTIGATE(
         METHOD(
-            this->setDirection("left");
-            this->setVelX(-5);))
+            if (this->getDirection() == "right") {
+                this->setDirection("left");
+                sprite.scale(-1.f, 1);
+            } this->setVelX(-6);))
     END_ACTION;
 
     END_CONDITION;
@@ -44,7 +50,10 @@ void Player1::setupEventHandling(
     ACTION();
     INSTIGATE(
         METHOD(
-            this->setDirection("right");
+            if (this->getDirection() == "left") {
+                this->setDirection("right");
+                sprite.scale(-1.f, 1);
+            } this->setDirection("right");
             this->setVelX(5);))
     END_ACTION;
 
@@ -84,7 +93,8 @@ void Player1::setupEventHandling(
     ACTION();
     INSTIGATE(
         METHOD(
-            this->setVelX(0);))
+            this->setVelX(0);
+            resetAnimation();))
     END_ACTION;
 
     END_CONDITION;
@@ -97,7 +107,8 @@ void Player1::setupEventHandling(
     ACTION();
     INSTIGATE(
         METHOD(
-            this->setVelX(0);))
+            this->setVelX(0);
+            resetAnimation();))
     END_ACTION;
 
     END_CONDITION;

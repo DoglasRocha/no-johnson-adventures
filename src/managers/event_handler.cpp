@@ -121,6 +121,6 @@ void EventHandler::handleEvents()
 {
     while (this->getEvent())
     {
-        this->atEventType->SetValue(this->event.type);
+        this->atEventType->SetValue(this->event.type, true);
     }
 }

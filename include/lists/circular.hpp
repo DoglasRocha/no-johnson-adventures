@@ -86,7 +86,7 @@ namespace Lists
             return tail;
         }
 
-        ListaCircular<T> *append(T *data)
+        CircularList<T> *append(T *data)
         {
             Node *node = new Node(data);
             if (length == 0)
