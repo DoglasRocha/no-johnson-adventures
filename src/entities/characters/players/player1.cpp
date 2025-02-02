@@ -39,7 +39,6 @@ void Player1::setupEventHandling(
                 sprite.scale(-1.f, 1);
             } this->setVelX(-6);))
     END_ACTION;
-
     END_CONDITION;
     END_RULE;
 
@@ -56,7 +55,6 @@ void Player1::setupEventHandling(
             } this->setDirection("right");
             this->setVelX(5);))
     END_ACTION;
-
     END_CONDITION;
     END_RULE;
 
@@ -67,22 +65,11 @@ void Player1::setupEventHandling(
     ACTION();
     INSTIGATE(
         METHOD(
-            this->setVelY(-5);))
+            if (jumps < 2) {
+                this->thrust = -5;
+                jumps++;
+            }))
     END_ACTION;
-
-    END_CONDITION;
-    END_RULE;
-
-    RULE();
-    LCONDITION();
-    CEXP(atKeyPressed == sf::Keyboard::Key::S);
-    END_CONDITION;
-    ACTION();
-    INSTIGATE(
-        METHOD(
-            this->setVelY(5);))
-    END_ACTION;
-
     END_CONDITION;
     END_RULE;
 
@@ -96,7 +83,6 @@ void Player1::setupEventHandling(
             this->setVelX(0);
             resetAnimation();))
     END_ACTION;
-
     END_CONDITION;
     END_RULE;
 
@@ -110,33 +96,6 @@ void Player1::setupEventHandling(
             this->setVelX(0);
             resetAnimation();))
     END_ACTION;
-
-    END_CONDITION;
-    END_RULE;
-
-    RULE();
-    LCONDITION();
-    CEXP(atKeyReleased == sf::Keyboard::Key::W);
-    END_CONDITION;
-    ACTION();
-    INSTIGATE(
-        METHOD(
-            this->setVelY(0);))
-    END_ACTION;
-
-    END_CONDITION;
-    END_RULE;
-
-    RULE();
-    LCONDITION();
-    CEXP(atKeyReleased == sf::Keyboard::Key::S);
-    END_CONDITION;
-    ACTION();
-    INSTIGATE(
-        METHOD(
-            this->setVelY(0);))
-    END_ACTION;
-
     END_CONDITION;
     END_RULE;
 }

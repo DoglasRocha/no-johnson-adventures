@@ -137,7 +137,7 @@ void Character::loadTextures(const std::string path, const int start, const int 
 
 void Character::scaleSprite(const float xFactor, const float yFactor)
 {
-    sprite.setScale(xFactor, yFactor);
+    sprite.scale(xFactor, yFactor);
     FloatRect bounds = sprite.getGlobalBounds();
     x = bounds.left;
     y = bounds.top;

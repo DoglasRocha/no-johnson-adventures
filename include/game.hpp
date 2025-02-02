@@ -1,6 +1,7 @@
 #pragma once
 #include "managers/graphic_manager.hpp"
 #include "managers/event_handler.hpp"
+#include "managers/colision_manager.hpp"
 #include "entities/characters/players/player1.hpp"
 #include "entities/characters/enemies/big_nose.hpp"
 #include "entities/obstacles/wall.hpp"
@@ -18,6 +19,7 @@ class Game : NOP::FBE
 private:
     std::shared_ptr<GraphicManager> graphicManager;
     std::shared_ptr<EventHandler> eventHandler;
+    std::shared_ptr<ColisionManager> colisionManager;
     Player1 CJ;
     BigNose bigNose;
     Wall wall, wall1;
