@@ -29,4 +29,4 @@ namespace managers
         void centerWindow(int x);
         sf::Vector2f getCenterView();
     };
-} // namespace managers
+}

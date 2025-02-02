@@ -2,7 +2,7 @@
 #include "graphic_manager.hpp"
 #include <SFML/Graphics.hpp>
 #include <libnop/framework.h>
-#include "../ente.hpp"
+#include "../utils/ente.hpp"
 #include <memory>
 
 namespace managers

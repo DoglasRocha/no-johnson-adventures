@@ -1,5 +1,5 @@
 #pragma once
-#include "../ente.hpp"
+#include "../utils/ente.hpp"
 #include <SFML/Graphics.hpp>
 #include "../managers/graphic_manager.hpp"
 

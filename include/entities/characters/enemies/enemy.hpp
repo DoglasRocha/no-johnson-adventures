@@ -1,24 +1,23 @@
 #pragma once
-#include "character.hpp"
+#include "../character.hpp"
 #include <SFML/Graphics.hpp>
+#include "../../../lists/circular.hpp"
 
-using entities::characters::Character;
 using namespace sf;
 
 namespace entities::characters
 {
-    class Player : public Character
+    class Enemy : public Character
     {
-    private:
-        int score = 0;
-
-        // protected:
-        //     Text textoBarraVida;
-        //     Font font;
+    protected:
+        int points;
+        Clock attackClock;
+        const sf::Time attackTick;
 
     public:
-        Player();
-        virtual ~Player();
+        Enemy();
+        Enemy(const float attackTick);
+        virtual ~Enemy();
         virtual void setupEventHandling(
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
@@ -26,16 +25,9 @@ namespace entities::characters
             NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonReleased,
             NOP::SharedAttribute<int> &atMousePositionX,
             NOP::SharedAttribute<int> &atMousePositionY) = 0;
-        void collideX();
-        virtual void moveX();
-        void pushX(const int direction);
-        void pushY();
+        virtual void collideX() = 0;
         void slowness();
         void burn();
-        void reset();
-        // virtual void desenhaBarraVida() = 0;
-        void resetScore();
-        int getScore();
-        void addScore(int score);
+        int getPoints();
     };
 }

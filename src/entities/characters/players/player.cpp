@@ -1,4 +1,4 @@
-#include "../../../include/entities/characters/player.hpp"
+#include "../../../../include/entities/characters/players/player.hpp"
 
 using namespace entities::characters;
 

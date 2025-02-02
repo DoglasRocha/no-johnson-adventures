@@ -1,4 +1,4 @@
-#include "../include/ente.hpp"
+#include "../../include/utils/ente.hpp"
 
 Ente::Ente()
 {
