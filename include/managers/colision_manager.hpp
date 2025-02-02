@@ -1,52 +1,52 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../entities/characters/Inimigos/inimigo.hpp"
-#include "../Entidades/Obstaculos/obstaculo.hpp"
-#include "../Entidades/Personagens/jogador.hpp"
-#include "../Entidades/projetil.hpp"
+#include "../entities/characters/enemies/enemy.hpp"
+#include "../entities/obstacles/obstacle.hpp"
+#include "../entities/characters/character.hpp"
+// #include "../entities/projetil.hpp"
 
 #include <vector>
 #include <list>
 
 using namespace sf;
-using namespace entidades;
-using entidades::obstaculos::Obstaculo;
+using namespace entities::characters;
+using namespace entities::obstacles;
 
-namespace Gerenciadores
+namespace managers
 {
-    class GerenciadorColisoes
+    class ColisionManager
     {
     private:
-        static GerenciadorColisoes *instance;
-        const int gravidade;
-        Jogador *jogador;
-        Jogador *jogador2;
-        Projetil *ptrProjetil;
-        std::vector<Inimigo *> vetorInimigos;
-        std::list<Obstaculo *> listaObstaculos;
+        static ColisionManager *instance;
+        const int gravity;
+        Player *player;
+        // Jogador *jogador2;
+        // Projetil *ptrProjetil;
+        std::vector<Enemy *> enemyVector;
+        std::list<Obstacle *> obstacleList;
 
-        GerenciadorColisoes();
+        ColisionManager();
         bool moveX, moveY;
-        int sentido;
+        int direction;
 
     public:
-        ~GerenciadorColisoes();
-        static GerenciadorColisoes *getInstance();
+        ~ColisionManager();
+        static ColisionManager *getInstance();
         static void deleteInstance();
-        GerenciadorColisoes *addInimigo(Inimigo *ptrInimigo);
-        GerenciadorColisoes *addObstaculo(Obstaculo *ptrObstaculo);
-        void aplicaGravidade(Entidade *entidade);
-        void executar();
-        std::vector<Inimigo *> getVetorInimigos();
-        void executarColisoesJogador(Jogador *ptrJogador);
-        void mostraHitbox(int x, int y, int width, int height);
-        void setJogador(Jogador *ptrJogador);
-        void setJogador2(Jogador *ptrJogador);
-        void setProjetil(Projetil *ptrProjetil_);
-        void executaColisoesObstaculos(Personagem *ptrPersonagem);
-        void executaColisaoJogadorComInimigo(Jogador *ptrJogador);
-        void executaColisaoProjetilComEntidade();
-        void limparListas();
-        void deletaProjetil();
+        ColisionManager *addEnemy(Enemy *enemyPtr);
+        ColisionManager *addObstacle(Obstacle *obstaclePtr);
+        void applyGravity(Entity *entity);
+        void run();
+        std::vector<Enemy *> getEnemyVector();
+        void runPlayerColisions(Player *playerPtr);
+        void showHitbox(int x, int y, int width, int height);
+        void setPlayer(Player *playerPtr);
+        // void setJogador2(Jogador *ptrJogador);
+        // void setProjetil(Projetil *ptrProjetil_);
+        void runObstacleColisions(Character *characterPtr);
+        void runPlayerColisionWithEnemy(Player *playerPtr);
+        // void executaColisaoProjetilComEntidade();
+        void clearLists();
+        // void deletaProjetil();
     };
 }

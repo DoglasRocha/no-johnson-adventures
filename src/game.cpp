@@ -11,7 +11,10 @@ GraphicManager *Ente::ptrGM = nullptr;
 
 Game::
     Game() : graphicManager(GraphicManager::getInstance()),
-             eventHandler(EventHandler::getInstance())
+             eventHandler(EventHandler::getInstance()),
+             wall(32, 500, 0, 450),
+             wall1(32, 500, 1368, 450),
+             platform(1500, 50, 0, 950)
 {
     Ente::setGraphicManager(graphicManager);
     CJ.setGraphicManager(graphicManager);
@@ -25,6 +28,10 @@ Game::
         CJ.moveX();
         CJ.moveY();
         CJ.draw();
+        bigNose.draw();
+        wall.draw();
+        wall1.draw();
+        platform.draw();
         graphicManager->showElements();
     }
 }

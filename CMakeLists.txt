@@ -28,3 +28,8 @@ set_target_properties(no-johnson-adventures PROPERTIES
 	CXX_STANDARD 20
 )
 target_link_libraries(no-johnson-adventures libnop sfml-graphics sfml-window sfml-network sfml-audio sfml-system)
+
+add_custom_target(
+	run ALL
+	COMMAND ./no-johnson-adventures
+)
