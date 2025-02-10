@@ -3,7 +3,7 @@
 #include "../entities/characters/enemies/enemy.hpp"
 #include "../entities/obstacles/obstacle.hpp"
 #include "../entities/characters/character.hpp"
-// #include "../entities/projetil.hpp"
+#include "../entities/item/projectile.hpp"
 
 #include <vector>
 #include <list>
@@ -11,6 +11,7 @@
 using namespace sf;
 using namespace entities::characters;
 using namespace entities::obstacles;
+using namespace entities;
 
 namespace managers
 {
@@ -21,7 +22,7 @@ namespace managers
         const int gravity;
         Player *player;
         // Jogador *jogador2;
-        // Projetil *ptrProjetil;
+        Projectile *projectilePtr;
         std::vector<Enemy *> enemyVector;
         std::list<Obstacle *> obstacleList;
 
@@ -42,11 +43,11 @@ namespace managers
         void showHitbox(int x, int y, int width, int height);
         void setPlayer(Player *playerPtr);
         // void setJogador2(Jogador *ptrJogador);
-        // void setProjetil(Projetil *ptrProjetil_);
+        void setProjectile(Projectile *projectilePtr);
         void runObstacleColisions(Character *characterPtr);
         void runPlayerColisionWithEnemy(Player *playerPtr);
-        // void executaColisaoProjetilComEntidade();
+        void runProjectileColisionWithEntity();
         void clearLists();
-        // void deletaProjetil();
+        void deleteProjectile();
     };
 }

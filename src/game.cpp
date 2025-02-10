@@ -16,13 +16,15 @@ Game::
              colisionManager(ColisionManager::getInstance()),
              wall(32, 500, 0, 450),
              wall1(32, 500, 1368, 450),
-             platform(1500, 50, 0, 950)
+             platform(1500, 50, 0, 950),
+             projectile("projectile", "../assets/bullet.png", &minotaur)
 {
     Ente::setGraphicManager(graphicManager);
     CJ.setGraphicManager(graphicManager);
     eventHandler->setGraphicManager(graphicManager);
     eventHandler->subscribe(&CJ);
-    colisionManager->addEnemy(&bigNose)->addObstacle(&wall)->addObstacle(&wall1)->addObstacle(&platform)->setPlayer(&CJ);
+    colisionManager->addEnemy(&bigNose)->addEnemy(&minotaur)->addObstacle(&wall)->addObstacle(&wall1)->addObstacle(&platform)->setPlayer(&CJ);
+    colisionManager->setProjectile(&projectile);
 
     while (graphicManager->checkWindowOpen())
     {
@@ -31,6 +33,8 @@ Game::
         colisionManager->run();
         CJ.draw();
         bigNose.draw();
+        minotaur.draw();
+        projectile.draw();
         wall.draw();
         wall1.draw();
         platform.draw();

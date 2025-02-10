@@ -11,7 +11,7 @@ namespace managers
 
     ColisionManager::ColisionManager() : gravity(1)
     {
-        // ptrProjetil = nullptr;
+        projectilePtr = nullptr;
         // jogador2 = nullptr;
     }
 
@@ -85,8 +85,8 @@ namespace managers
 
         runPlayerColisions(player);
         // executarColisoesJogador(jogador2);
-        // if (ptrProjetil)
-        //     executaColisaoProjetilComEntidade();
+        if (projectilePtr)
+            runProjectileColisionWithEntity();
     }
 
     void ColisionManager::runPlayerColisions(Player *playerPtr)
@@ -172,10 +172,10 @@ namespace managers
     //     jogador2 = playerPtr;
     // }
 
-    // void ColisionManager::setProjetil(Projetil *ptrProjetil_)
-    // {
-    //     ptrProjetil = ptrProjetil_;
-    // }
+    void ColisionManager::setProjectile(Projectile *projectilePtr)
+    {
+        this->projectilePtr = projectilePtr;
+    }
 
     vector<Enemy *> ColisionManager::getEnemyVector()
     {
@@ -231,52 +231,52 @@ namespace managers
         // showHitbox(futurePlayerBounds.left, futurePlayerBounds.top, futurePlayerBounds.width, futurePlayerBounds.height);
     }
 
-    // void ColisionManager::executaColisaoProjetilComEntidade()
-    // {
-    //     ptrProjetil->setVelY(gravity * 2);
-    //     FloatRect bProjetil = ptrProjetil->getSprite()->getGlobalBounds();
-    //     int deltaX = ptrProjetil->getVelX(),
-    //         deltaY = ptrProjetil->getVelY() + ptrProjetil->getThrust();
+    void ColisionManager::runProjectileColisionWithEntity()
+    {
+        projectilePtr->setVelY(gravity * 2);
+        FloatRect projectileBounds = projectilePtr->getSprite()->getGlobalBounds();
+        int deltaX = projectilePtr->getVelX(),
+            deltaY = projectilePtr->getVelY() + projectilePtr->getThrust();
 
-    //     FloatRect boundsJogador = jogador->getSprite()->getGlobalBounds();
+        FloatRect playerBounds = player->getSprite()->getGlobalBounds();
 
-    //     if (bProjetil.intersects(boundsJogador))
-    //     {
-    //         if (boundsJogador.left < bProjetil.left)
-    //             jogador->repelirX(-1);
-    //         else
-    //             jogador->repelirX(1);
-    //         ptrProjetil->reset();
+        if (projectileBounds.intersects(playerBounds))
+        {
+            if (playerBounds.left < projectileBounds.left)
+                player->pushX(-1);
+            else
+                player->pushX(1);
+            projectilePtr->reset();
 
-    //         jogador->recebeAtaque(ptrProjetil->getAtaque());
-    //     }
+            player->sufferAttack(projectilePtr->getAttack());
+        }
 
-    //     if (jogador2)
-    //     {
-    //         FloatRect boundsJogador2 = jogador2->getSprite()->getGlobalBounds();
-    //         if (bProjetil.intersects(boundsJogador2))
-    //         {
-    //             if (boundsJogador2.left < bProjetil.left)
-    //                 jogador2->repelirX(-1);
-    //             else
-    //                 jogador2->repelirX(1);
-    //             ptrProjetil->reset();
+        // if (player2)
+        // {
+        //     FloatRect playerBounds2 = player2->getSprite()->getGlobalBounds();
+        //     if (projectileBounds.intersects(playerBounds2))
+        //     {
+        //         if (playerBounds2.left < projectileBounds.left)
+        //             player2->repelirX(-1);
+        //         else
+        //             player2->repelirX(1);
+        //         projectilePtr->reset();
 
-    //             jogador2->recebeAtaque(ptrProjetil->getAtaque());
-    //         }
-    //     }
+        //         player2->recebeAtaque(projectilePtr->getAtaque());
+        //     }
+        // }
 
-    //     ptrProjetil->moverX();
-    //     ptrProjetil->moverY();
+        projectilePtr->moveX();
+        projectilePtr->moveY();
 
-    //     std::list<Obstacle *>::iterator it;
-    //     for (it = listaObstaculos.begin(); it != listaObstaculos.end(); it++)
-    //     {
-    //         FloatRect boundsObstaculo = (*it)->getShape()->getGlobalBounds();
-    //         if (boundsObstaculo.intersects(bProjetil))
-    //             ptrProjetil->reset();
-    //     }
-    // }
+        std::list<Obstacle *>::iterator it;
+        for (it = obstacleList.begin(); it != obstacleList.end(); it++)
+        {
+            FloatRect obstacleBounds = (*it)->getShape()->getGlobalBounds();
+            if (obstacleBounds.intersects(projectileBounds))
+                projectilePtr->reset();
+        }
+    }
 
     void ColisionManager::clearLists()
     {

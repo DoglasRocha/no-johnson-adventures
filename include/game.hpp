@@ -4,6 +4,8 @@
 #include "managers/colision_manager.hpp"
 #include "entities/characters/players/player1.hpp"
 #include "entities/characters/enemies/big_nose.hpp"
+#include "entities/characters/enemies/minotaur.hpp"
+#include "entities/item/projectile.hpp"
 #include "entities/obstacles/wall.hpp"
 #include "entities/obstacles/platform.hpp"
 #include <memory>
@@ -22,6 +24,8 @@ private:
     std::shared_ptr<ColisionManager> colisionManager;
     Player1 CJ;
     BigNose bigNose;
+    Minotaur minotaur;
+    Projectile projectile;
     Wall wall, wall1;
     Platform platform;
 

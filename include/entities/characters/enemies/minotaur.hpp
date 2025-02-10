@@ -5,15 +5,15 @@ using namespace sf;
 
 namespace entities::characters
 {
-    class BigNose : public Enemy
+    class Minotaur : public Enemy
     {
     private:
-        int sneezePower;
+        int hornWear;
 
     public:
-        BigNose();
-        BigNose(const int x, const int y);
-        ~BigNose();
+        Minotaur();
+        Minotaur(const int x, const int y);
+        ~Minotaur();
         void collideX();
         int getAttack();
         void slowness();

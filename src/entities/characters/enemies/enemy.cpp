@@ -9,6 +9,14 @@ Enemy::Enemy(const float attackTick) : points(0), attackTick(sf::seconds(attackT
 
 Enemy::~Enemy() {}
 
+void Enemy::setupEventHandling(
+    NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
+    NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
+    NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,
+    NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonReleased,
+    NOP::SharedAttribute<int> &atMousePositionX,
+    NOP::SharedAttribute<int> &atMousePositionY) {}
+
 void Enemy::slowness()
 {
 }

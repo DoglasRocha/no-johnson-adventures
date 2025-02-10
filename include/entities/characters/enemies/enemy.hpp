@@ -18,13 +18,13 @@ namespace entities::characters
         Enemy();
         Enemy(const float attackTick);
         virtual ~Enemy();
-        virtual void setupEventHandling(
+        void setupEventHandling(
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
             NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,
             NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonReleased,
             NOP::SharedAttribute<int> &atMousePositionX,
-            NOP::SharedAttribute<int> &atMousePositionY) = 0;
+            NOP::SharedAttribute<int> &atMousePositionY);
         virtual void collideX() = 0;
         void slowness();
         void burn();
