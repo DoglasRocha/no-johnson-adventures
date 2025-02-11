@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
+using entities::characters::Character;
 
 namespace entities
 {
@@ -46,7 +47,7 @@ namespace entities
         }
         else
         {
-            x = owner->getX() + 260;
+            x = owner->getX() + 200;
             velX = 12;
         }
 
@@ -64,5 +65,11 @@ namespace entities
     {
         sprite->move(0, velY);
         y += velY;
+    }
+
+    void Projectile::interact(characters::Character *character)
+    {
+        character->sufferAttack(this->attack);
+        reset();
     }
 }

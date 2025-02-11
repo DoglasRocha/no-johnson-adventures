@@ -5,6 +5,7 @@
 #include "entities/characters/players/player1.hpp"
 #include "entities/characters/enemies/big_nose.hpp"
 #include "entities/characters/enemies/minotaur.hpp"
+#include "entities/characters/enemies/bat.hpp"
 #include "entities/item/projectile.hpp"
 #include "entities/obstacles/wall.hpp"
 #include "entities/obstacles/platform.hpp"
@@ -25,6 +26,7 @@ private:
     Player1 CJ;
     BigNose bigNose;
     Minotaur minotaur;
+    Bat bat;
     Projectile projectile;
     Wall wall, wall1;
     Platform platform;

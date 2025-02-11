@@ -17,5 +17,6 @@ namespace entities
         void reset();
         void moveX();
         void moveY();
+        void interact(characters::Character *character);
     };
 }

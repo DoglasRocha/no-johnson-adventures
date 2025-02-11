@@ -25,6 +25,7 @@ Game::
     eventHandler->subscribe(&CJ);
     colisionManager->addEnemy(&bigNose)->addEnemy(&minotaur)->addObstacle(&wall)->addObstacle(&wall1)->addObstacle(&platform)->setPlayer(&CJ);
     colisionManager->setProjectile(&projectile);
+    colisionManager->addEnemy(&bat);
 
     while (graphicManager->checkWindowOpen())
     {
@@ -38,6 +39,7 @@ Game::
         wall.draw();
         wall1.draw();
         platform.draw();
+        bat.draw();
         graphicManager->showElements();
     }
 }

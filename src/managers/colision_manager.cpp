@@ -240,7 +240,7 @@ namespace managers
 
         FloatRect playerBounds = player->getSprite()->getGlobalBounds();
 
-        if (projectileBounds.intersects(playerBounds))
+        if (projectileBounds.intersects(playerBounds) && player->getAlive())
         {
             if (playerBounds.left < projectileBounds.left)
                 player->pushX(-1);
