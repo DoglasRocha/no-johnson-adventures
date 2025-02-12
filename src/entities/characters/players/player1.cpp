@@ -12,11 +12,37 @@ Player1::Player1()
     sprite.setPosition(x, y);
     setOriginToCenter();
     scaleSprite(3.0, 3.0);
+
+    lifeBarText.setFont(font);
+    lifeBarText.setCharacterSize(25);
+    lifeBarText.setFillColor(sf::Color::White);
+    lifeBarText.setOutlineColor(sf::Color::Black);
+    lifeBarText.setOutlineThickness(10);
+    lifeBarText.setString("1P");
 }
 
 Player1::~Player1()
 {
-    // Destructor implementation
+}
+
+void Player1::drawLifeBar()
+{
+    RectangleShape bar(Vector2f(lives * 2, 25));
+    RectangleShape barBackground(Vector2f(200, 25));
+
+    bar.setFillColor(Color::Green);
+    barBackground.setFillColor(Color::Red);
+
+    Vector2f viewPosition = ptrGM->getCenterView();
+    bar.setPosition(viewPosition.x - 650, viewPosition.y - 450);
+    barBackground.setPosition(viewPosition.x - 650, viewPosition.y - 450);
+    bar.setSize(Vector2f(lives * 2, 25));
+
+    lifeBarText.setPosition(viewPosition.x - 690, viewPosition.y - 450);
+
+    ptrGM->drawElement(barBackground);
+    ptrGM->drawElement(bar);
+    ptrGM->drawElement(lifeBarText);
 }
 
 void Player1::setupEventHandling(

@@ -43,6 +43,7 @@ namespace levels
     {
         background->draw();
         entityList.drawEntities();
+        player1Ptr->drawLifeBar();
     }
 
     void Level::handle_colisions()

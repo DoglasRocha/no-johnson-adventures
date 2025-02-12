@@ -5,7 +5,7 @@ using namespace entities::characters;
 
 Enemy::Enemy() : points(0), attackTick(sf::seconds(1.0f)) {}
 
-Enemy::Enemy(const float attackTick) : points(0), attackTick(sf::seconds(attackTick)) {}
+Enemy::Enemy(const float attackTick) : points(0), attackTick(sf::milliseconds(attackTick)) {}
 
 Enemy::~Enemy() {}
 

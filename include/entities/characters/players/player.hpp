@@ -12,9 +12,9 @@ namespace entities::characters
     private:
         int score = 0;
 
-        // protected:
-        //     Text textoBarraVida;
-        //     Font font;
+    protected:
+        Text lifeBarText;
+        Font font;
 
     public:
         Player();
@@ -33,7 +33,7 @@ namespace entities::characters
         void slowness();
         void burn();
         void reset();
-        // virtual void desenhaBarraVida() = 0;
+        virtual void drawLifeBar() = 0;
         void resetScore();
         int getScore();
         void addScore(int score);

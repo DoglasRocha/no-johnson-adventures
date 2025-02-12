@@ -10,7 +10,7 @@ namespace entities::characters
     public:
         Player1();
         ~Player1();
-        // void desenhaBarraVida();
+        void drawLifeBar();
         void setupEventHandling(
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,

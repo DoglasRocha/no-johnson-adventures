@@ -6,6 +6,8 @@ Player::Player() : Character()
 {
     this->lives = 100;
     this->attack = 20;
+
+    font.loadFromFile("../assets/VCR_OSD_MONO.ttf");
 }
 
 Player::~Player()
