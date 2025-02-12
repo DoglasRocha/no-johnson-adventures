@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 using namespace sf;
-using namespace Lists;
+using namespace lists;
 
 namespace entities::characters
 {

@@ -6,7 +6,7 @@
 #define JOGO_TECNICAS_PROGRAMACAO_LISTA_CIRCULAR_HPP
 #include <iostream>
 
-namespace Lists
+namespace lists
 {
 
     template <class T>

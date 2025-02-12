@@ -5,12 +5,13 @@
 #include "../managers/graphic_manager.hpp"
 #include "../managers/event_handler.hpp"
 #include "../lists/entities.hpp"
-// #include "../background_manager.hpp"
-#include "../entities/characters/player1.hpp"
+#include "../ui/background_manager.hpp"
+#include "../entities/characters/players/player1.hpp"
+#include <memory>
 // #include "../Entidades/Personagens/jogador2.hpp"
 
 using namespace managers;
-using lists::entityList;
+using lists::EntityList;
 
 namespace levels
 {
@@ -18,30 +19,36 @@ namespace levels
     {
     protected:
         ColisionManager *colisionManager;
-        EventHandler *EventHandler;
+        EventHandler *eventHandler;
         EntityList entityList;
         Player *player1Ptr; //, *player2Ptr;
-        // BackgroundManager *planoDeFundo;
+        std::shared_ptr<BackgroundManager> background;
         int bigNoseCount = 0, batCount = 0;
 
     public:
-        Level(GerenciadorColisoes *gC = nullptr,
-              GerenciadorEventos *gE = nullptr,
-              Jogador *ptrJogador_ = nullptr,
-              Jogo *ptrJogo = nullptr,
-              Jogador *ptrJogador2_ = nullptr);
+        Level(ColisionManager *colisionManager = nullptr,
+              EventHandler *eventHandler = nullptr,
+              Player *playerPtr = nullptr,
+              Game *gamePtr = nullptr); //,
+        //   Jogador *ptrJogador2_ = nullptr);
         virtual ~Level();
-        virtual void executar();
-        virtual void processaEventos();
-        void desenhar();
-        void gerencia_colisoes();
-        virtual void trocaEstado(int opcao = 0) = 0;
-        void criaPlataforma(int tamX, int tamY, int posX, int posY);
-        void criaParede(int tamY, int posX, int posY);
-        void criaNarigudo(int posX, int posY);
-        void criaArbusto(int posX, int posY);
-        void criaFogo(int posX, int posY);
-        void criaMorcego(int posX, int posY);
-        virtual void criaPlataformaComAgregadosAleatorios(int tamX, int tamY, int posX, int posY) = 0;
+        virtual void run();
+        virtual void setupEventHandling(
+            NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
+            NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
+            NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,
+            NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonReleased,
+            NOP::SharedAttribute<int> &atMousePositionX,
+            NOP::SharedAttribute<int> &atMousePositionY) = 0;
+        void draw();
+        void handle_colisions();
+        virtual void changeState(int option = 0) = 0;
+        void createPlatform(int xSize, int ySize, int posX, int posY);
+        void createWall(int ySize, int posX, int posY);
+        void createBigNose(int posX, int posY);
+        void createBush(int posX, int posY);
+        void createFire(int posX, int posY);
+        void createBat(int posX, int posY);
+        virtual void createPlatformWithRandomThingsAbove(int xSize, int ySize, int posX, int posY) = 0;
     };
 }

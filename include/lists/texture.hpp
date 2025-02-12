@@ -7,7 +7,7 @@
 #include "circular.hpp"
 #include <SFML/Graphics.hpp>
 
-namespace Lists
+namespace lists
 {
     class TextureList : public CircularList<sf::Texture>
     {

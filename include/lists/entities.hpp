@@ -4,13 +4,13 @@
 
 #ifndef JOGO_TECNICAS_PROGRAMACAO_LISTA_ENTIDADES_HPP
 #define JOGO_TECNICAS_PROGRAMACAO_LISTA_ENTIDADES_HPP
-#include "../entities/characters/player.hpp"
+#include "../entities/characters/players/player.hpp"
 #include "circular.hpp"
 #include "../entities/entity.hpp"
 
 using entities::characters::Player;
 
-namespace Lists
+namespace lists
 {
     class EntityList : public CircularList<entities::Entity>
     {
