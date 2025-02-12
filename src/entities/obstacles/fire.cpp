@@ -1,4 +1,5 @@
 #include "../../../include/entities/obstacles/fire.hpp"
+#include <sstream>
 
 namespace entities::obstacles
 {
@@ -10,7 +11,10 @@ namespace entities::obstacles
         xSize = 45;
         ySize = 70 * strength;
 
-        texture->loadFromFile("../assets/fire/fire1.png");
+        shape = std::make_shared<RectangleShape>(Vector2f(xSize, ySize));
+        std::stringstream buffer;
+        buffer << "../assets/fire/fire" << (rand() % 8) + 1 << ".png";
+        texture->loadFromFile(buffer.str());
         shape->setTexture(texture.get());
         shape->setPosition(x, y - ySize);
     }

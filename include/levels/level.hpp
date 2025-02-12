@@ -7,6 +7,7 @@
 #include "../lists/entities.hpp"
 #include "../ui/background_manager.hpp"
 #include "../entities/characters/players/player1.hpp"
+#include "../entities/characters/enemies/minotaur.hpp"
 #include <memory>
 // #include "../Entidades/Personagens/jogador2.hpp"
 
@@ -49,6 +50,8 @@ namespace levels
         void createBush(int posX, int posY);
         void createFire(int posX, int posY);
         void createBat(int posX, int posY);
+        void createMinotaur(int posX, int posY);
+        void createProjectile(entities::characters::Minotaur *minotaurPtr);
         virtual void createPlatformWithRandomThingsAbove(int xSize, int ySize, int posX, int posY) = 0;
     };
 }

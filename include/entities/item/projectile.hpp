@@ -9,7 +9,7 @@ namespace entities
     class Projectile : public Item
     {
     public:
-        Projectile(std::string kind, std::string texturePath, characters::Character *owner);
+        Projectile(characters::Character *owner);
         ~Projectile();
         void setThrust(int thrust);
         void collideX();

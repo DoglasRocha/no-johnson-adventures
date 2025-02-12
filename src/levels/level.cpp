@@ -97,4 +97,21 @@ namespace levels
             entityList.append(newBat),
                 colisionManager->addEnemy(newBat);
     }
+
+    void Level::createMinotaur(int posX, int posY)
+    {
+        Minotaur *newMinotaur = new Minotaur(posX, posY - 50);
+        if (newMinotaur)
+            entityList.append(newMinotaur),
+                colisionManager->addEnemy(newMinotaur),
+                createProjectile(newMinotaur);
+    }
+
+    void Level::createProjectile(entities::characters::Minotaur *minotaurPtr)
+    {
+        Projectile *newProjectile = new Projectile(minotaurPtr);
+        if (newProjectile)
+            entityList.append(newProjectile),
+                colisionManager->setProjectile(newProjectile);
+    }
 }

@@ -7,7 +7,7 @@ using entities::characters::Character;
 namespace entities
 {
 
-    Projectile::Projectile(std::string kind, std::string texturePath, characters::Character *owner) : Item(kind, texturePath)
+    Projectile::Projectile(characters::Character *owner) : Item("projectile", "../assets/bullet.png")
     {
         this->owner = owner;
         attack = 10;

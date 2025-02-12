@@ -1,5 +1,7 @@
 #include "../include/game.hpp"
 #include "../include/levels/level1.hpp"
+#include "../include/levels/level2.hpp"
+
 #include <thread>
 #include <chrono>
 #include <iostream>
@@ -25,7 +27,7 @@ Game::
 
     colisionManager->setPlayer(&CJ);
 
-    currentState = new Level1(colisionManager.get(), eventHandler.get(), &CJ, this);
+    currentState = new Level2(colisionManager.get(), eventHandler.get(), &CJ, this);
 
     while (graphicManager->checkWindowOpen())
     {

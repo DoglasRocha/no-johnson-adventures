@@ -284,9 +284,9 @@ namespace managers
         obstacleList.clear();
     }
 
-    // void ColisionManager::deletaProjetil()
-    // {
-    //     // delete ptrProjetil; Por alguma razão que só Deus sabe, isso crasha o jogo.
-    //      = nullptr;
-    // }
+    void ColisionManager::deleteProjectile()
+    {
+        // delete ptrProjetil; Por alguma razão que só Deus sabe, isso crasha o jogo.
+        // = nullptr;
+    }
 }
