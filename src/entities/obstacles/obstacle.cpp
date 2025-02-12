@@ -8,8 +8,8 @@ Obstacle::Obstacle(const int sizeX, const int sizeY)
 {
     this->xSize = sizeX;
     this->ySize = sizeY;
-    shape = new RectangleShape(Vector2f(sizeX, sizeY));
-    texture = new Texture();
+    shape = std::make_shared<RectangleShape>(Vector2f(sizeX, sizeY));
+    texture = std::make_shared<Texture>();
 }
 
 Obstacle::Obstacle(const int sizeX, const int sizeY, const int x, const int y) : Obstacle(sizeX, sizeY)
@@ -22,14 +22,6 @@ Obstacle::Obstacle(const int sizeX, const int sizeY, const int x, const int y) :
 
 Obstacle::~Obstacle()
 {
-    if (shape)
-    {
-        delete shape;
-    }
-    if (texture)
-    {
-        delete texture;
-    }
 }
 
 int Obstacle::getSizeX() const
@@ -54,12 +46,12 @@ void Obstacle::setSizeY(const int sizeY)
 
 Drawable *Obstacle::getDraw()
 {
-    return shape;
+    return shape.get();
 }
 
 Shape *Obstacle::getShape()
 {
-    return shape;
+    return shape.get();
 }
 
 void Obstacle::draw()

@@ -10,7 +10,7 @@ namespace entities::obstacles
         texture->loadFromFile("../assets/background/platform.png");
         texture->setRepeated(true);
 
-        shape->setTexture(texture);
+        shape->setTexture(texture.get());
         shape->setTextureRect({0, 0, xSize, 24});
     }
 

@@ -9,6 +9,8 @@
 #include "entities/item/projectile.hpp"
 #include "entities/obstacles/wall.hpp"
 #include "entities/obstacles/platform.hpp"
+#include "entities/obstacles/bush.hpp"
+#include "entities/obstacles/fire.hpp"
 #include <memory>
 // #include <libnop/fbe.h>
 #include <libnop/framework.h>
@@ -30,6 +32,8 @@ private:
     Projectile projectile;
     Wall wall, wall1;
     Platform platform;
+    Fire fire;
+    Bush bush;
 
 public:
     Game();

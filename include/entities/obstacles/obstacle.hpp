@@ -1,6 +1,7 @@
 #pragma once
 #include "../entity.hpp"
 #include "../characters/players/player.hpp"
+#include <memory>
 
 using entities::Entity;
 using entities::characters::Character;
@@ -12,8 +13,8 @@ namespace entities::obstacles
     {
     protected:
         int xSize, ySize;
-        Shape *shape;
-        Texture *texture;
+        std::shared_ptr<Shape> shape;
+        std::shared_ptr<Texture> texture;
         bool isSolid = 1;
 
     public:
