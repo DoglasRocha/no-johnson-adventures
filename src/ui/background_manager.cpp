@@ -7,7 +7,7 @@ BackgroundManager::BackgroundManager(const std::string pathToImage) : path(pathT
 {
     std::stringstream buffer;
     buffer << "../assets/" << path;
-    if (!texture->loadFromFile(path))
+    if (!texture->loadFromFile(buffer.str()))
     {
         throw std::runtime_error("Failed to load background image from path: " + path);
     }
@@ -28,6 +28,8 @@ BackgroundManager::~BackgroundManager()
 
 void BackgroundManager::draw()
 {
+    sf::Vector2f viewPosition = ptrGM->getCenterView();
+    backgroundImage.setPosition(viewPosition.x - 700, viewPosition.y - 500);
     ptrGM->drawElement(backgroundImage);
 }
 

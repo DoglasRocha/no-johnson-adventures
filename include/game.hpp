@@ -3,14 +3,7 @@
 #include "managers/event_handler.hpp"
 #include "managers/colision_manager.hpp"
 #include "entities/characters/players/player1.hpp"
-#include "entities/characters/enemies/big_nose.hpp"
-#include "entities/characters/enemies/minotaur.hpp"
-#include "entities/characters/enemies/bat.hpp"
-#include "entities/item/projectile.hpp"
-#include "entities/obstacles/wall.hpp"
-#include "entities/obstacles/platform.hpp"
-#include "entities/obstacles/bush.hpp"
-#include "entities/obstacles/fire.hpp"
+#include "utils/state.hpp"
 #include <memory>
 // #include <libnop/fbe.h>
 #include <libnop/framework.h>
@@ -26,16 +19,16 @@ private:
     std::shared_ptr<EventHandler> eventHandler;
     std::shared_ptr<ColisionManager> colisionManager;
     Player1 CJ;
-    BigNose bigNose;
-    Minotaur minotaur;
-    Bat bat;
-    Projectile projectile;
-    Wall wall, wall1;
-    Platform platform;
-    Fire fire;
-    Bush bush;
+    State *formerState, *currentState;
 
 public:
     Game();
     ~Game();
+    int getScore();
+    void resetScore();
+    void goToLevel1(bool coop);
+    void goToLevel2(bool coop);
+    void goToRanking();
+    void goToMenu();
+    void goToPlayerMenu(int level);
 };

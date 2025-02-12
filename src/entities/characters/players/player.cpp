@@ -22,7 +22,7 @@ void Player::moveX()
 {
     sprite.move((float)velX, 0);
     x += velX;
-    // ptrGM->centerWindow(x);
+    ptrGM->centerWindow(x);
 
     // ????
     if (velX == 50 || velX == -50)

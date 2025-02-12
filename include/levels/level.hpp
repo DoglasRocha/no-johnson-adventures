@@ -33,13 +33,13 @@ namespace levels
         //   Jogador *ptrJogador2_ = nullptr);
         virtual ~Level();
         virtual void run();
-        virtual void setupEventHandling(
+        void setupEventHandling(
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
             NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,
             NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonReleased,
             NOP::SharedAttribute<int> &atMousePositionX,
-            NOP::SharedAttribute<int> &atMousePositionY) = 0;
+            NOP::SharedAttribute<int> &atMousePositionY);
         void draw();
         void handle_colisions();
         virtual void changeState(int option = 0) = 0;

@@ -9,9 +9,11 @@ namespace entities::obstacles
         height = (float(rand()) / RAND_MAX) + 1;
         xSize = 100;
         ySize = 50 * height;
+
+        shape = std::make_shared<RectangleShape>(Vector2f(xSize, ySize));
         texture->loadFromFile("../assets/pixel_art_forest/PNG/background_layers/bush.png");
         shape->setTexture(texture.get());
-        shape->setPosition(x, y - xSize);
+        shape->setPosition(x, y - ySize);
     }
     Bush::~Bush()
     {

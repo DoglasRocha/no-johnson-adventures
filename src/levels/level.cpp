@@ -1,4 +1,5 @@
 #include "../../include/levels/level.hpp"
+#include "../../include/game.hpp"
 #include "../../include/entities/obstacles/platform.hpp"
 #include "../../include/entities/obstacles/wall.hpp"
 #include "../../include/entities/obstacles/bush.hpp"
@@ -23,8 +24,19 @@ namespace levels
     void Level::run()
     {
         handle_colisions();
+        eventHandler->handleEvents();
         draw();
         changeState();
+    }
+
+    void Level::setupEventHandling(
+        NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
+        NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
+        NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,
+        NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonReleased,
+        NOP::SharedAttribute<int> &atMousePositionX,
+        NOP::SharedAttribute<int> &atMousePositionY)
+    {
     }
 
     void Level::draw()

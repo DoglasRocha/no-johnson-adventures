@@ -23,6 +23,8 @@ namespace entities::characters
     {
         this->x = x;
         this->y = y;
+
+        sprite.setPosition(x, y);
     }
 
     Bat::~Bat()
