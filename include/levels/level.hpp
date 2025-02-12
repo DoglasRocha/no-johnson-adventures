@@ -22,7 +22,7 @@ namespace levels
         ColisionManager *colisionManager;
         EventHandler *eventHandler;
         EntityList entityList;
-        Player *player1Ptr; //, *player2Ptr;
+        Player *player1Ptr, *player2Ptr;
         std::shared_ptr<BackgroundManager> background;
         int bigNoseCount = 0, batCount = 0;
 
@@ -30,8 +30,8 @@ namespace levels
         Level(ColisionManager *colisionManager = nullptr,
               EventHandler *eventHandler = nullptr,
               Player *playerPtr = nullptr,
-              Game *gamePtr = nullptr); //,
-        //   Jogador *ptrJogador2_ = nullptr);
+              Game *gamePtr = nullptr,
+              Player *player2Ptr = nullptr);
         virtual ~Level();
         virtual void run();
         void setupEventHandling(

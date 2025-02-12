@@ -7,8 +7,8 @@
 #include "../../include/entities/characters/enemies/big_nose.hpp"
 #include "../../include/entities/characters/enemies/bat.hpp"
 
-Level1::Level1(ColisionManager *colisionManager, EventHandler *eventHandler, Player *playerPtr, Game *gamePtr)
-    : Level(colisionManager, eventHandler, playerPtr, gamePtr)
+Level1::Level1(ColisionManager *colisionManager, EventHandler *eventHandler, Player *playerPtr, Game *gamePtr, Player *player2Ptr)
+    : Level(colisionManager, eventHandler, playerPtr, gamePtr, player2Ptr)
 {
     int platformInfo[11][4] = {
         {1000, 50, 32, 950},

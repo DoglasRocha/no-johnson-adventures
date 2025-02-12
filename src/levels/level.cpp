@@ -9,10 +9,12 @@
 
 namespace levels
 {
-    Level::Level(ColisionManager *colisionManager, EventHandler *eventHandler, Player *playerPtr, Game *gamePtr)
-        : colisionManager(colisionManager), eventHandler(eventHandler), player1Ptr(playerPtr), State(gamePtr)
+    Level::Level(ColisionManager *colisionManager, EventHandler *eventHandler, Player *playerPtr, Game *gamePtr, Player *player2Ptr)
+        : colisionManager(colisionManager), eventHandler(eventHandler), player1Ptr(playerPtr), State(gamePtr), player2Ptr(player2Ptr)
     {
         entityList.append(player1Ptr);
+        if (player2Ptr)
+            entityList.append(player2Ptr);
     }
 
     Level::~Level()
@@ -44,6 +46,8 @@ namespace levels
         background->draw();
         entityList.drawEntities();
         player1Ptr->drawLifeBar();
+        if (player2Ptr)
+            player2Ptr->drawLifeBar();
     }
 
     void Level::handle_colisions()

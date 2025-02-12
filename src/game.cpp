@@ -24,10 +24,12 @@ Game::
     CJ.setGraphicManager(graphicManager);
 
     eventHandler->subscribe(&CJ);
+    eventHandler->subscribe(&BigSmoke);
 
     colisionManager->setPlayer(&CJ);
+    colisionManager->setPlayer2(&BigSmoke);
 
-    currentState = new Level2(colisionManager.get(), eventHandler.get(), &CJ, this);
+    currentState = new Level2(colisionManager.get(), eventHandler.get(), &CJ, this, &BigSmoke);
 
     while (graphicManager->checkWindowOpen())
     {

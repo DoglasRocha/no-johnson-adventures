@@ -12,7 +12,7 @@ namespace managers
     ColisionManager::ColisionManager() : gravity(1)
     {
         projectilePtr = nullptr;
-        // jogador2 = nullptr;
+        player2 = nullptr;
     }
 
     ColisionManager *ColisionManager::getInstance()
@@ -84,7 +84,7 @@ namespace managers
         }
 
         runPlayerColisions(player);
-        // executarColisoesJogador(jogador2);
+        runPlayerColisions(player2);
         if (projectilePtr)
             runProjectileColisionWithEntity();
     }
@@ -167,10 +167,10 @@ namespace managers
         player = playerPtr;
     }
 
-    // void ColisionManager::setJogador2(Player *playerPtr)
-    // {
-    //     jogador2 = playerPtr;
-    // }
+    void ColisionManager::setPlayer2(Player *player2Ptr)
+    {
+        player2 = player2Ptr;
+    }
 
     void ColisionManager::setProjectile(Projectile *projectilePtr)
     {
@@ -251,20 +251,20 @@ namespace managers
             player->sufferAttack(projectilePtr->getAttack());
         }
 
-        // if (player2)
-        // {
-        //     FloatRect playerBounds2 = player2->getSprite()->getGlobalBounds();
-        //     if (projectileBounds.intersects(playerBounds2))
-        //     {
-        //         if (playerBounds2.left < projectileBounds.left)
-        //             player2->repelirX(-1);
-        //         else
-        //             player2->repelirX(1);
-        //         projectilePtr->reset();
+        if (player2)
+        {
+            FloatRect playerBounds2 = player2->getSprite()->getGlobalBounds();
+            if (projectileBounds.intersects(playerBounds2))
+            {
+                if (playerBounds2.left < projectileBounds.left)
+                    player2->pushX(-1);
+                else
+                    player2->pushX(1);
+                projectilePtr->reset();
 
-        //         player2->recebeAtaque(projectilePtr->getAtaque());
-        //     }
-        // }
+                player2->sufferAttack(projectilePtr->getAttack());
+            }
+        }
 
         projectilePtr->moveX();
         projectilePtr->moveY();

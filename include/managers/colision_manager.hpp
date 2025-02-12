@@ -21,7 +21,7 @@ namespace managers
         static ColisionManager *instance;
         const int gravity;
         Player *player;
-        // Jogador *jogador2;
+        Player *player2;
         Projectile *projectilePtr;
         std::vector<Enemy *> enemyVector;
         std::list<Obstacle *> obstacleList;
@@ -42,7 +42,7 @@ namespace managers
         void runPlayerColisions(Player *playerPtr);
         void showHitbox(int x, int y, int width, int height);
         void setPlayer(Player *playerPtr);
-        // void setJogador2(Jogador *ptrJogador);
+        void setPlayer2(Player *player2Ptr);
         void setProjectile(Projectile *projectilePtr);
         void runObstacleColisions(Character *characterPtr);
         void runPlayerColisionWithEnemy(Player *playerPtr);
