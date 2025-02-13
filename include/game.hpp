@@ -28,9 +28,9 @@ public:
     ~Game();
     int getScore();
     void resetScore();
-    void goToLevel1(bool coop);
-    void goToLevel2(bool coop);
-    void goToRanking();
-    void goToMenu();
+    void goToLevel1(int coop);
+    void goToLevel2(int coop);
+    void goToRanking(int param);
+    void goToMenu(int param);
     void goToPlayerMenu(int level);
 };

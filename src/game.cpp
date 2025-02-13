@@ -59,7 +59,7 @@ void Game::resetScore()
     CJ.resetScore();
 }
 
-void Game::goToLevel1(bool coop)
+void Game::goToLevel1(int coop)
 {
     CJ.reset();
 
@@ -78,7 +78,7 @@ void Game::goToLevel1(bool coop)
         currentState = new Level1(colisionManager.get(), eventHandler.get(), &CJ, this);
 }
 
-void Game::goToLevel2(bool coop)
+void Game::goToLevel2(int coop)
 {
     CJ.reset();
 
@@ -96,11 +96,11 @@ void Game::goToLevel2(bool coop)
     // }
 }
 
-void Game::goToRanking()
+void Game::goToRanking(int param)
 {
 }
 
-void Game::goToMenu()
+void Game::goToMenu(int param)
 {
 }
 
