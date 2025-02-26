@@ -5,6 +5,7 @@
 #include "background_manager.hpp"
 #include "button.hpp"
 #include "../utils/state.hpp"
+#include <memory>
 
 using namespace managers;
 
@@ -13,8 +14,8 @@ class Menu : public Ente, public State
 private:
     int cont = 1;
     EventHandler *eventHandler;
-    BackgroundManager *background;
-    std::list<Button> buttonList;
+    std::shared_ptr<BackgroundManager> background;
+    std::vector<Button *> buttonList;
     Game *gamePtr;
     Text title;
     Font font;

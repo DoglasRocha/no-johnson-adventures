@@ -6,14 +6,13 @@
 #include "entities/characters/players/player2.hpp"
 #include "utils/state.hpp"
 #include <memory>
-// #include <libnop/fbe.h>
 #include <libnop/framework.h>
 
 using namespace managers;
 using namespace entities::characters;
 using namespace entities::obstacles;
 
-class Game : NOP::FBE
+class Game
 {
 private:
     std::shared_ptr<GraphicManager> graphicManager;
@@ -24,13 +23,22 @@ private:
     State *formerState, *currentState;
 
 public:
+    enum States
+    {
+        Level1State,
+        Level2State,
+        RankingState,
+        MenuState,
+        PlayerMenuState
+    };
     Game();
     ~Game();
     int getScore();
     void resetScore();
     void goToLevel1(int coop);
     void goToLevel2(int coop);
-    void goToRanking(int param);
-    void goToMenu(int param);
-    void goToPlayerMenu(int level);
+    void goToRanking();
+    void goToMenu();
+    void goToPlayerMenu(States state);
+    void changeState(States state, int param);
 };

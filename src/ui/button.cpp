@@ -1,19 +1,21 @@
 #include "../../include/ui/button.hpp"
+#include "../../include/game.hpp"
 
 Button::Button() : xSize(350),
                    ySize(150),
-                   x(0),
+                   x(550),
                    y(0),
                    shape(make_shared<RectangleShape>(Vector2f(xSize, ySize))),
                    texture(make_shared<Texture>()),
                    param(0),
-                   action(nullptr)
+                   gamePtr(nullptr)
 {
 }
 
-Button::Button(const int y, const string texturePath, void *action(int), int param) : Button()
+Button::Button(const int y, const string texturePath, Game *gamePtr, Game::States state, int param) : Button()
 {
-    this->action = action;
+    this->state = state;
+    this->gamePtr = gamePtr;
     this->param = param;
     this->y = y;
     if (!texture->loadFromFile(texturePath))
@@ -51,7 +53,7 @@ void Button::setupEventHandling(
     ACTION();
     INSTIGATE(
         METHOD(
-            this->action(this->param);))
+            this->gamePtr->changeState(this->state, this->param);))
     END_ACTION;
     END_CONDITION;
     END_RULE;
@@ -60,4 +62,9 @@ void Button::setupEventHandling(
 void Button::draw()
 {
     ptrGM->drawElement(*shape);
+}
+
+Shape *Button::getShape()
+{
+    return shape.get();
 }
