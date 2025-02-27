@@ -16,7 +16,19 @@ Menu::Menu(EventHandler *eventHandler, Game *gamePtr)
     title.setOutlineThickness(10);
     title.setPosition(100, 75);
 
-    Button *newButton = new Button(250, "../assets/menu/button_level_1.png", gamePtr, Game::States::Level1State, 0);
+    Button *newButton = new Button(250, "../assets/menu/button_level_1.png", gamePtr, Game::States::PlayerMenuState, 1);
+    buttonList.push_back(newButton);
+    eventHandler->subscribe(newButton);
+
+    newButton = new Button(425, "../assets/menu/button_level_2.png", gamePtr, Game::States::PlayerMenuState, 2);
+    buttonList.push_back(newButton);
+    eventHandler->subscribe(newButton);
+
+    newButton = new Button(600, "../assets/menu/ranking_button.png", gamePtr, Game::States::RankingState, 0);
+    buttonList.push_back(newButton);
+    eventHandler->subscribe(newButton);
+
+    newButton = new Button(775, "../assets/menu/exit_button.png", gamePtr, Game::States::Exit, 0);
     buttonList.push_back(newButton);
     eventHandler->subscribe(newButton);
 }
@@ -27,6 +39,10 @@ Menu::~Menu()
     {
         delete buttonList[i];
     }
+
+    rl1->SetCondition(c1);
+    rl2->SetCondition(c1);
+    rl3->SetCondition(c1);
 }
 
 void Menu::run()
@@ -43,21 +59,9 @@ void Menu::setupEventHandling(
     NOP::SharedAttribute<int> &atMousePositionX,
     NOP::SharedAttribute<int> &atMousePositionY)
 {
-    RULE();
+    RULE(&rl1);
     LCONDITION();
     CEXP(atKeyPressed == sf::Keyboard::Key::Down);
-    END_CONDITION;
-    ACTION();
-    INSTIGATE(
-        METHOD(
-            this->operator--();))
-    END_ACTION;
-    END_CONDITION;
-    END_RULE;
-
-    RULE();
-    LCONDITION();
-    CEXP(atKeyPressed == sf::Keyboard::Key::Up);
     END_CONDITION;
     ACTION();
     INSTIGATE(
@@ -67,13 +71,26 @@ void Menu::setupEventHandling(
     END_CONDITION;
     END_RULE;
 
-    RULE();
+    RULE(&rl2);
+    LCONDITION();
+    CEXP(atKeyPressed == sf::Keyboard::Key::Up);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->operator--();))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE(&rl3);
     LCONDITION();
     CEXP(atKeyPressed == sf::Keyboard::Key::Return);
     END_CONDITION;
     ACTION();
     INSTIGATE(
         METHOD(
+            atKeyPressed->SetValue(sf::Keyboard::Key::Unknown);
             this->changeState(cont);))
     END_ACTION;
     END_CONDITION;
@@ -86,8 +103,9 @@ void Menu::draw()
     ptrGM->drawElement(title);
 
     Button *tmpButton = buttonList[cont - 1];
-    tmpButton->getShape()->setOutlineThickness(10);
+    this->resetButtons();
 
+    tmpButton->getShape()->setOutlineThickness(10);
     for (int i = 0; i < buttonList.size(); i++)
         buttonList[i]->draw();
 }

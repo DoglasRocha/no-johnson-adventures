@@ -3,6 +3,7 @@
 #include "../include/utils/state.hpp"
 #include "../include/levels/level1.hpp"
 #include "../include/levels/level2.hpp"
+#include "../include/ui/player_menu.hpp"
 
 #include <thread>
 #include <chrono>
@@ -19,7 +20,8 @@ GraphicManager *Ente::ptrGM = nullptr;
 Game::
     Game() : graphicManager(GraphicManager::getInstance()),
              eventHandler(EventHandler::getInstance()),
-             colisionManager(ColisionManager::getInstance())
+             colisionManager(ColisionManager::getInstance()),
+             formerState(nullptr)
 {
     srand(time(NULL));
     Ente::setGraphicManager(graphicManager);
@@ -67,29 +69,12 @@ void Game::resetScore()
 
 void Game::goToLevel1(int coop)
 {
-    if (coop)
-        currentState = new Level1(colisionManager.get(), eventHandler.get(), &CJ, this, nullptr);
-
-    else
-        currentState = new Level1(colisionManager.get(), eventHandler.get(), &CJ, this, &BigSmoke);
+    currentState = new Level1(colisionManager.get(), eventHandler.get(), &CJ, this, coop ? &BigSmoke : nullptr);
 }
 
 void Game::goToLevel2(int coop)
 {
-    CJ.reset();
-
-    colisionManager->clearLists();
-    // if (formerState)
-    // {
-    //     delete formerState;
-    //     formerState = nullptr;
-    // }
-    // formerState = currentState;
-
-    // if (coop)
-    // {
-    //     currentState = new Level1(colisionManager.get(), eventHandler.get(), &CJ, this);
-    // }
+    currentState = new Level2(colisionManager.get(), eventHandler.get(), &CJ, this, coop ? &BigSmoke : nullptr);
 }
 
 void Game::goToRanking()
@@ -98,10 +83,19 @@ void Game::goToRanking()
 
 void Game::goToMenu()
 {
+    CJ.resetScore();
+    BigSmoke.resetScore();
+
+    Menu *menu = new Menu(eventHandler.get(), this);
+    currentState = menu;
+    eventHandler->subscribe(menu);
 }
 
-void Game::goToPlayerMenu(States state)
+void Game::goToPlayerMenu(int level)
 {
+    PlayerMenu *playerMenu = new PlayerMenu(eventHandler.get(), this, level);
+    currentState = playerMenu;
+    eventHandler->subscribe(playerMenu);
 }
 
 void Game::changeState(States state, int param)
@@ -136,7 +130,11 @@ void Game::changeState(States state, int param)
         break;
 
     case States::PlayerMenuState:
-        this->goToPlayerMenu(state);
+        this->goToPlayerMenu(param);
+        break;
+
+    case States::Exit:
+        graphicManager->closeWindow();
         break;
     }
 }

@@ -29,7 +29,8 @@ public:
         Level2State,
         RankingState,
         MenuState,
-        PlayerMenuState
+        PlayerMenuState,
+        Exit
     };
     Game();
     ~Game();
@@ -39,6 +40,6 @@ public:
     void goToLevel2(int coop);
     void goToRanking();
     void goToMenu();
-    void goToPlayerMenu(States state);
+    void goToPlayerMenu(int level);
     void changeState(States state, int param);
 };

@@ -9,22 +9,20 @@
 
 using namespace managers;
 
-class Menu : public Ente, public State
+class PlayerMenu : public Ente, public State
 {
 private:
-    int cont = 1;
+    int cont = 1, level;
     EventHandler *eventHandler;
     std::shared_ptr<BackgroundManager> background;
     std::vector<Button *> buttonList;
     Game *gamePtr;
-    Text title;
-    Font font;
     NOP::SharedRule rl1, rl2, rl3;
     NOP::SharedCondition c1;
 
 public:
-    Menu(EventHandler *eventHandler = nullptr, Game *gamePtr = nullptr);
-    ~Menu();
+    PlayerMenu(EventHandler *eventHandler = nullptr, Game *gamePtr = nullptr, int level = 1);
+    ~PlayerMenu();
     void run();
     void setupEventHandling(
         NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
