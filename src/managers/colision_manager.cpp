@@ -8,14 +8,99 @@ using namespace std;
 
 namespace managers
 {
-
     ColisionManager::ColisionManager() : gravity(1)
     {
         projectilePtr = nullptr;
         player2 = nullptr;
     }
 
-    ColisionManager *ColisionManager::getInstance()
+    ColisionManager::Colision ColisionManager::characterColisionWithFloatRect(Character *characterPtr, FloatRect &floatRect)
+    {
+        Colision colision;
+
+        FloatRect characterBounds = characterPtr->getSprite()->getGlobalBounds(),
+                  futureCharacterBounds = characterBounds;
+
+        int deltaX = characterPtr->getVelX(),
+            deltaY = characterPtr->getVelY() + characterPtr->getThrust();
+
+        // colisão em Y
+        futureCharacterBounds.top += deltaY;
+
+        if (floatRect.intersects(futureCharacterBounds))
+        {
+            // down
+            if (floatRect.top > futureCharacterBounds.top &&
+                futureCharacterBounds.top + futureCharacterBounds.height >= floatRect.top)
+            {
+                colision.down = true;
+            }
+            // up
+            else if (floatRect.top + floatRect.height < futureCharacterBounds.top + futureCharacterBounds.height &&
+                     futureCharacterBounds.top <= floatRect.top + floatRect.height)
+            {
+                colision.up = true;
+            }
+        }
+
+        // colisão em X
+        futureCharacterBounds = characterBounds;
+        futureCharacterBounds.left += deltaX;
+
+        if (floatRect.intersects(futureCharacterBounds))
+        {
+            // right
+            if (floatRect.left > futureCharacterBounds.left &&
+                futureCharacterBounds.left + futureCharacterBounds.width >= floatRect.left)
+            {
+                colision.right = true;
+            }
+            // left
+            else if (floatRect.left + floatRect.width < futureCharacterBounds.left + futureCharacterBounds.width &&
+                     futureCharacterBounds.left <= floatRect.left + floatRect.width)
+            {
+                colision.left = true;
+            }
+        }
+
+        return colision;
+    }
+
+    ColisionManager::Colision ColisionManager::characterColisionWithCharacter(Character *characterPtr, Character *character2Ptr)
+    {
+        Colision colision;
+
+        FloatRect character2Bounds = character2Ptr->getSprite()->getGlobalBounds(),
+                  futureCharacter2Bounds = character2Bounds;
+
+        int deltaX = character2Ptr->getVelX(),
+            deltaY = character2Ptr->getVelY() + character2Ptr->getThrust();
+
+        futureCharacter2Bounds.top += deltaY, futureCharacter2Bounds.left += deltaX;
+        return this->characterColisionWithFloatRect(characterPtr, futureCharacter2Bounds);
+    }
+
+    void ColisionManager::runEnemyColision(Enemy *enemyPtr)
+    {
+        if (!enemyPtr->getAlive())
+            return;
+
+        Colision result = runObstacleColisions(enemyPtr);
+
+        if (!result.left && !result.right)
+            enemyPtr->moveX();
+        else
+            enemyPtr->collideX();
+
+        if (!result.up && !result.down)
+            enemyPtr->moveY(),
+                applyGravity(enemyPtr);
+        else
+            enemyPtr->collideY();
+    }
+
+    ColisionManager *
+    ColisionManager::getInstance()
     {
         if (instance == nullptr)
             instance = new ColisionManager();
@@ -57,32 +142,19 @@ namespace managers
 
     void ColisionManager::run()
     {
+        // enemies
         for (int i = 0, l = enemyVector.size(); i < l; i++)
         {
-            moveX = moveY = true;
-
-            if (!enemyVector[i]->getAlive())
-                continue;
-
-            runObstacleColisions(enemyVector[i]);
-
-            if (moveX)
-                enemyVector[i]->moveX();
-            else
-                enemyVector[i]->collideX();
-
-            if (moveY)
-                enemyVector[i]->moveY(),
-                    applyGravity(enemyVector[i]);
-            else
-                enemyVector[i]->collideY();
+            runEnemyColision(enemyVector[i]);
         }
 
+        // obstacles
         for (list<Obstacle *>::iterator it = obstacleList.begin(); it != obstacleList.end(); it++)
         {
             applyGravity(*it);
         }
 
+        // player
         runPlayerColisions(player);
         runPlayerColisions(player2);
         if (projectilePtr)
@@ -91,66 +163,64 @@ namespace managers
 
     void ColisionManager::runPlayerColisions(Player *playerPtr)
     {
+        if (!playerPtr)
+            return;
+        Colision colisionSum, c;
         moveX = moveY = true;
-        runPlayerColisionWithEnemy(playerPtr);
-        runObstacleColisions(playerPtr);
-        if (moveX)
+        colisionSum = runPlayerColisionWithEnemy(playerPtr);
+        c = runObstacleColisions(playerPtr);
+
+        colisionSum.up = colisionSum.up || c.up;
+        colisionSum.down = colisionSum.down || c.down;
+        colisionSum.left = colisionSum.left || c.left;
+        colisionSum.right = colisionSum.right || c.right;
+
+        if (!colisionSum.left && !colisionSum.right)
             playerPtr->moveX();
         else
             playerPtr->collideX();
 
-        if (moveY)
+        if (!colisionSum.up && !colisionSum.down)
             playerPtr->moveY(),
                 applyGravity(playerPtr);
         else
             playerPtr->collideY();
     }
 
-    void ColisionManager::runObstacleColisions(Character *characterPtr)
+    ColisionManager::Colision ColisionManager::runObstacleColisions(Character *characterPtr)
     {
-
-        FloatRect boundsCurrentCharacter = characterPtr->getSprite()->getGlobalBounds(),
-                  futureBoundsCharacter = boundsCurrentCharacter;
-        int deltaX = characterPtr->getVelX(),
-            deltaY = characterPtr->getVelY() + characterPtr->getThrust();
-
-        // futureBoundsCharacter.top += deltaY, futureBoundsCharacter.left += deltaX;
+        Colision colisionsSum;
 
         std::list<Obstacle *>::iterator it;
         for (it = obstacleList.begin(); it != obstacleList.end(); it++)
         {
             FloatRect obstacleBounds = (*it)->getShape()->getGlobalBounds();
 
-            futureBoundsCharacter = boundsCurrentCharacter;
-            futureBoundsCharacter.left += deltaX; // ??
-            // checa se colide em X
-            if (obstacleBounds.intersects(futureBoundsCharacter))
+            Colision colisions = characterColisionWithFloatRect(characterPtr, obstacleBounds);
+
+            if (colisions.down || colisions.up || colisions.left || colisions.right)
             {
                 if ((*it)->getIsSolid())
-                    moveX = false;
+                {
+                    colisionsSum.up = colisionsSum.up || colisions.up;
+                    colisionsSum.down = colisionsSum.down || colisions.down;
+                    colisionsSum.left = colisionsSum.left || colisions.left;
+                    colisionsSum.right = colisionsSum.right || colisions.right;
+                }
                 else
                 {
                     (*it)->interact(characterPtr);
-                    characterPtr->checkAlive();
                 }
-            }
-
-            futureBoundsCharacter = boundsCurrentCharacter;
-            futureBoundsCharacter.top += deltaY;
-            // checa se colide em Y
-            if (obstacleBounds.intersects(futureBoundsCharacter))
-            {
-                if ((*it)->getIsSolid())
-                    moveY = false;
             }
         }
 
-        futureBoundsCharacter.left += deltaX;
         // showHitbox(
         //     futureBoundsCharacter.left,
         //     futureBoundsCharacter.top,
         //     futureBoundsCharacter.width,
         //     futureBoundsCharacter.height);
+
+        return colisionsSum;
     }
 
     void ColisionManager::showHitbox(int x, int y, int width, int height)
@@ -182,17 +252,11 @@ namespace managers
         return enemyVector;
     }
 
-    void ColisionManager::runPlayerColisionWithEnemy(Player *playerPtr)
+    ColisionManager::Colision ColisionManager::runPlayerColisionWithEnemy(Player *playerPtr)
     {
+        Colision colisionsSum;
 
-        FloatRect playerBounds = playerPtr->getSprite()->getGlobalBounds(),
-                  futurePlayerBounds = playerBounds;
-        int deltaX = playerPtr->getVelX(),
-            deltaY = playerPtr->getVelY() + playerPtr->getThrust();
         vector<Enemy *>::iterator it;
-
-        futurePlayerBounds.top += deltaY, futurePlayerBounds.left += deltaX;
-
         for (int i = 0, l = enemyVector.size(); i < l; i++)
         {
             if (!enemyVector[i]->getAlive())
@@ -202,33 +266,29 @@ namespace managers
                 enemyVector.erase(it);
             }
 
-            FloatRect enemyBounds = enemyVector[i]->getSprite()->getGlobalBounds();
+            Colision result = characterColisionWithCharacter(playerPtr, enemyVector[i]);
 
             // colide em X
-            futurePlayerBounds = playerBounds;
-            futurePlayerBounds.left += deltaX;
-            if (enemyBounds.intersects(futurePlayerBounds))
+            if (result.left || result.right)
             {
-                if (futurePlayerBounds.left < enemyBounds.left)
-                    playerPtr->pushX(-1);
-                else
-                    playerPtr->pushX(1);
-
+                result.left ? playerPtr->pushX(-1) : playerPtr->pushX(1);
                 playerPtr->sufferAttack(enemyVector[i]);
             }
 
             // colide em Y
-            futurePlayerBounds = playerBounds;
-            futurePlayerBounds.top += deltaY;
-            if (enemyBounds.intersects(futurePlayerBounds) &&
-                playerBounds.top + playerBounds.height < enemyBounds.top)
-                playerPtr->pushY(),
-                    moveY = false,
+            if (result.up || result.down)
+            {
+                playerPtr->pushY(result.down),
                     enemyVector[i]->sufferAttack(playerPtr);
+            }
+
+            colisionsSum.up = colisionsSum.up || result.up;
+            colisionsSum.down = colisionsSum.down || result.down;
+            colisionsSum.left = colisionsSum.left || result.left;
+            colisionsSum.right = colisionsSum.right || result.right;
         }
 
-        futurePlayerBounds.left += deltaX;
-        // showHitbox(futurePlayerBounds.left, futurePlayerBounds.top, futurePlayerBounds.width, futurePlayerBounds.height);
+        return colisionsSum;
     }
 
     void ColisionManager::runProjectileColisionWithEntity()

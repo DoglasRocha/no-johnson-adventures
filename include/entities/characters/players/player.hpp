@@ -30,7 +30,7 @@ namespace entities::characters
         void collideX();
         virtual void moveX();
         void pushX(const int direction);
-        void pushY();
+        void pushY(bool up);
         void slowness();
         void burn();
         void reset();

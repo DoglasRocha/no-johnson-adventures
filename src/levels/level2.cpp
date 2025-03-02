@@ -66,11 +66,11 @@ void Level2::changeState(int option)
 {
     if (!player1Ptr->getAlive())
     {
-        gamePtr->goToRanking();
+        gamePtr->changeState(Game::States::RankingState, 0);
     }
     else if (colisionManager->getEnemyVector().empty())
     {
-        gamePtr->goToRanking();
+        gamePtr->changeState(Game::States::RankingState, 0);
     }
 }
 

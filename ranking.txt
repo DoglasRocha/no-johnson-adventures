@@ -1,5 +1,10 @@
-ddd 60
-ddd 60
-a 10
-heloo 10
-heloo 10
+aaa 600
+aaa 220
+ddd 220
+wha 210
+das 210
+aaa 210
+qqq 210
+daa 200
+aaa 200
+was 190

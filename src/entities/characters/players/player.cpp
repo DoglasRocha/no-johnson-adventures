@@ -45,9 +45,9 @@ void Player::pushX(const int direction)
     }
 }
 
-void Player::pushY()
+void Player::pushY(bool up)
 {
-    thrust = -6;
+    thrust = up ? -6 : 6;
 }
 
 void Player::slowness()

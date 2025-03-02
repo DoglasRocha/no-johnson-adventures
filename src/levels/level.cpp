@@ -15,11 +15,13 @@ namespace levels
         entityList.append(player1Ptr);
         if (player2Ptr)
             entityList.append(player2Ptr);
+        colisionManager->setPlayer(player1Ptr);
+        colisionManager->setPlayer2(player2Ptr);
     }
 
     Level::~Level()
     {
-        colisionManager->clearLists();
+        // colisionManager->clearLists();
         entityList.clearList();
     }
 

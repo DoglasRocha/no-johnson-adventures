@@ -42,7 +42,6 @@ Game::
     while (graphicManager->checkWindowOpen())
     {
         graphicManager->clearWindow();
-
         currentState->run();
         graphicManager->showElements();
     }

@@ -30,6 +30,18 @@ namespace managers
         bool moveX, moveY;
         int direction;
 
+        struct Colision
+        {
+            bool up = false,
+                 down = false,
+                 left = false,
+                 right = false;
+        };
+
+        Colision characterColisionWithFloatRect(Character *characterPtr, FloatRect &floatRect);
+        Colision characterColisionWithCharacter(Character *characterPtr, Character *character2Ptr);
+        void runEnemyColision(Enemy *enemyPtr);
+
     public:
         ~ColisionManager();
         static ColisionManager *getInstance();
@@ -44,8 +56,8 @@ namespace managers
         void setPlayer(Player *playerPtr);
         void setPlayer2(Player *player2Ptr);
         void setProjectile(Projectile *projectilePtr);
-        void runObstacleColisions(Character *characterPtr);
-        void runPlayerColisionWithEnemy(Player *playerPtr);
+        Colision runObstacleColisions(Character *characterPtr);
+        Colision runPlayerColisionWithEnemy(Player *playerPtr);
         void runProjectileColisionWithEntity();
         void clearLists();
         void deleteProjectile();
