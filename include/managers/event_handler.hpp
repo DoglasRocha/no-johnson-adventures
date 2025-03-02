@@ -35,7 +35,8 @@ namespace managers
         static EventHandler *getInstance();
         static void deleteInstance();
         void setGraphicManager(std::shared_ptr<GraphicManager> ptrGM);
-        bool getEvent();
+        bool pollEvent();
+        sf::Event getEvent();
         void setPlayer(Ente *player);
         void subscribe(Ente *ente);
         void handleEvents();

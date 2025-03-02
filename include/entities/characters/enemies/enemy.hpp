@@ -19,6 +19,7 @@ namespace entities::characters
         Enemy(const float attackTick);
         virtual ~Enemy();
         void setupEventHandling(
+            NOP::SharedAttribute<sf::Event::EventType> &atEventType,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
             NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,

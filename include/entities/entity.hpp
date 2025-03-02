@@ -17,6 +17,7 @@ namespace entities
         virtual ~Entity();
         virtual void run();
         virtual void setupEventHandling(
+            NOP::SharedAttribute<sf::Event::EventType> &atEventType,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
             NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,
@@ -35,5 +36,5 @@ namespace entities
         void setVelY(const int vel);
         int getVelX() const;
         int getVelY() const;
-        };
+    };
 }

@@ -99,9 +99,14 @@ void EventHandler::setGraphicManager(std::shared_ptr<GraphicManager> ptrGM)
     this->ptrGM = ptrGM;
 }
 
-bool EventHandler::getEvent()
+bool EventHandler::pollEvent()
 {
     return (*ptrGM.lock()).getWindow()->pollEvent(this->event);
+}
+
+sf::Event EventHandler::getEvent()
+{
+    return this->event;
 }
 
 void EventHandler::setPlayer(Ente *player)
@@ -112,14 +117,14 @@ void EventHandler::setPlayer(Ente *player)
 void EventHandler::subscribe(Ente *ente)
 {
     ente->setupEventHandling(
-        this->atKeyPressed, this->atKeyReleased,
+        this->atEventType, this->atKeyPressed, this->atKeyReleased,
         this->atMouseButtonPressed, this->atMouseButtonReleased,
         this->atMousePositionX, this->atMousePositionY);
 }
 
 void EventHandler::handleEvents()
 {
-    while (this->getEvent())
+    while (this->pollEvent())
     {
         this->atEventType->SetValue(this->event.type, true);
     }

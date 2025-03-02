@@ -12,6 +12,7 @@ namespace entities::characters
         ~Player1();
         void drawLifeBar();
         void setupEventHandling(
+            NOP::SharedAttribute<sf::Event::EventType> &atEventType,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
             NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,

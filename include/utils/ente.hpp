@@ -18,6 +18,7 @@ public:
     virtual void draw() = 0;
     static void setGraphicManager(std::shared_ptr<GraphicManager> ptrGM_);
     virtual void setupEventHandling(
+        NOP::SharedAttribute<sf::Event::EventType> &atEventType,
         NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
         NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
         NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,

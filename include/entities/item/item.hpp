@@ -36,6 +36,7 @@ namespace entities
         virtual void collideY() = 0;
         virtual void interact(characters::Character *character) = 0;
         void setupEventHandling(
+            NOP::SharedAttribute<sf::Event::EventType> &atEventType,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
             NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,

@@ -4,6 +4,7 @@
 #include "../include/levels/level1.hpp"
 #include "../include/levels/level2.hpp"
 #include "../include/ui/player_menu.hpp"
+#include "../include/ui/ranking.hpp"
 
 #include <thread>
 #include <chrono>
@@ -41,6 +42,7 @@ Game::
     while (graphicManager->checkWindowOpen())
     {
         graphicManager->clearWindow();
+
         currentState->run();
         graphicManager->showElements();
     }
@@ -79,6 +81,9 @@ void Game::goToLevel2(int coop)
 
 void Game::goToRanking()
 {
+    Ranking *ranking = new Ranking(eventHandler.get(), this);
+    currentState = ranking;
+    eventHandler->subscribe(ranking);
 }
 
 void Game::goToMenu()
@@ -104,11 +109,6 @@ void Game::changeState(States state, int param)
     BigSmoke.reset();
     colisionManager->clearLists();
 
-    if (formerState)
-    {
-        delete formerState;
-        formerState = nullptr;
-    }
     formerState = currentState;
 
     switch (state)
@@ -137,4 +137,7 @@ void Game::changeState(States state, int param)
         graphicManager->closeWindow();
         break;
     }
+
+    delete formerState;
+    formerState = nullptr;
 }

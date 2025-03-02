@@ -29,6 +29,7 @@ Button::Button(const int y, const string texturePath, Game *gamePtr, Game::State
 
 Button::~Button()
 {
+    rl1->SetCondition(c1);
 }
 
 void Button::run()
@@ -36,6 +37,7 @@ void Button::run()
 }
 
 void Button::setupEventHandling(
+    NOP::SharedAttribute<sf::Event::EventType> &atEventType,
     NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
     NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
     NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,
@@ -43,7 +45,7 @@ void Button::setupEventHandling(
     NOP::SharedAttribute<int> &atMousePositionX,
     NOP::SharedAttribute<int> &atMousePositionY)
 {
-    RULE();
+    RULE(&rl1);
     LCONDITION();
     CEXP(atMousePositionX >= this->x)
     AND CEXP(atMousePositionX <= this->x + this->xSize)

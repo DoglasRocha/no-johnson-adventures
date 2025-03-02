@@ -33,6 +33,7 @@ void PlayerMenu::run()
 }
 
 void PlayerMenu::setupEventHandling(
+    NOP::SharedAttribute<sf::Event::EventType> &atEventType,
     NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
     NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,
     NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonPressed,
@@ -114,16 +115,16 @@ void PlayerMenu::changeState(int option)
     {
     case 1:
         if (level == 1)
-            gamePtr->goToLevel1(0);
+            gamePtr->changeState(Game::States::Level1State, 0);
         else
-            gamePtr->goToLevel2(0);
+            gamePtr->changeState(Game::States::Level2State, 0);
         break;
 
     case 2:
         if (level == 1)
-            gamePtr->goToLevel1(1);
+            gamePtr->changeState(Game::States::Level1State, 1);
         else
-            gamePtr->goToLevel2(1);
+            gamePtr->changeState(Game::States::Level2State, 1);
         break;
     }
 }

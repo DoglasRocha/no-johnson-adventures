@@ -9,20 +9,28 @@
 
 using namespace managers;
 
-class PlayerMenu : public Ente, public State
+struct PlayerInfo
+{
+    string name;
+    int score;
+};
+
+class Ranking : public Ente, public State
 {
 private:
-    int cont = 1, level;
     EventHandler *eventHandler;
     std::shared_ptr<BackgroundManager> background;
-    std::vector<Button *> buttonList;
+    std::vector<PlayerInfo> rankingList;
     Game *gamePtr;
+    Font font;
+    String playerInput;
+    Text inputText, gameOverText;
     NOP::SharedRule rl1, rl2, rl3;
     NOP::SharedCondition c1;
 
 public:
-    PlayerMenu(EventHandler *eventHandler = nullptr, Game *gamePtr = nullptr, int level = 1);
-    ~PlayerMenu();
+    Ranking(EventHandler *eventHandler = nullptr, Game *gamePtr = nullptr);
+    ~Ranking();
     void run();
     void setupEventHandling(
         NOP::SharedAttribute<sf::Event::EventType> &atEventType,
@@ -33,8 +41,8 @@ public:
         NOP::SharedAttribute<int> &atMousePositionX,
         NOP::SharedAttribute<int> &atMousePositionY);
     void draw();
-    void resetButtons();
-    void operator++();
-    void operator--();
     void changeState(int option = 0);
+    void readFile();
+    void writeFile(int points);
+    void drawPlayers();
 };
