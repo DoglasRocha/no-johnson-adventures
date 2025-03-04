@@ -15,8 +15,6 @@ private:
     std::shared_ptr<Texture> texture;
     Game *gamePtr;
     Game::States state;
-    NOP::SharedRule rl1;
-    NOP::SharedCondition c1;
 
 public:
     Button();

@@ -53,7 +53,7 @@ Game::
     EventHandler::deleteInstance();
     ColisionManager::deleteInstance();
     GraphicManager::deleteInstance();
-    delete formerState;
+    // delete formerState;
     delete currentState;
 }
 

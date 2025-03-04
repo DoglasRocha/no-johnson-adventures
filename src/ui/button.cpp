@@ -29,7 +29,6 @@ Button::Button(const int y, const string texturePath, Game *gamePtr, Game::State
 
 Button::~Button()
 {
-    rl1->SetCondition(c1);
 }
 
 void Button::run()
@@ -45,20 +44,6 @@ void Button::setupEventHandling(
     NOP::SharedAttribute<int> &atMousePositionX,
     NOP::SharedAttribute<int> &atMousePositionY)
 {
-    RULE(&rl1);
-    LCONDITION();
-    CEXP(atMousePositionX >= this->x)
-    AND CEXP(atMousePositionX <= this->x + this->xSize)
-        AND CEXP(atMousePositionY >= this->y)
-            AND CEXP(atMousePositionY <= this->y + this->ySize);
-    END_CONDITION;
-    ACTION();
-    INSTIGATE(
-        METHOD(
-            this->gamePtr->changeState(this->state, this->param);))
-    END_ACTION;
-    END_CONDITION;
-    END_RULE;
 }
 
 void Button::draw()
