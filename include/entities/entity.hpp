@@ -36,6 +36,6 @@ namespace entities
         void setVelY(const int vel);
         int getVelX() const;
         int getVelY() const;
-        virtual FloatRect getGlobalBounds() = 0;
+        virtual sf::FloatRect getGlobalBounds() = 0;
     };
 }
