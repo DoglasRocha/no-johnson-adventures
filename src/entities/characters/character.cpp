@@ -158,3 +158,8 @@ void Character::resetAnimation()
     currentNode = textures.begin();
     sprite.setTexture(*currentNode->getData());
 }
+
+FloatRect Character::getGlobalBounds()
+{
+    return sprite.getGlobalBounds();
+}

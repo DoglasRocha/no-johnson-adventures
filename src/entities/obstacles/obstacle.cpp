@@ -78,3 +78,8 @@ void Obstacle::setupEventHandling(
 void Obstacle::setThrust(int thrust)
 {
 }
+
+FloatRect Obstacle::getGlobalBounds()
+{
+    return shape->getGlobalBounds();
+}

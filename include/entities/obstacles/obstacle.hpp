@@ -40,5 +40,6 @@ namespace entities::obstacles
             NOP::SharedAttribute<int> &atMousePositionX,
             NOP::SharedAttribute<int> &atMousePositionY);
         void setThrust(int thrust);
+        FloatRect getGlobalBounds();
     };
 }

@@ -14,50 +14,50 @@ namespace managers
         player2 = nullptr;
     }
 
-    ColisionManager::Colision ColisionManager::characterColisionWithFloatRect(Character *characterPtr, FloatRect &floatRect)
+    ColisionManager::Colision ColisionManager::entityColisionWithFloatRect(Entity *entityPtr, FloatRect &floatRect)
     {
         Colision colision;
 
-        FloatRect characterBounds = characterPtr->getSprite()->getGlobalBounds(),
-                  futureCharacterBounds = characterBounds;
+        FloatRect entityBounds = entityPtr->getGlobalBounds(),
+                  futureEntityBounds = entityBounds;
 
-        int deltaX = characterPtr->getVelX(),
-            deltaY = characterPtr->getVelY() + characterPtr->getThrust();
+        int deltaX = entityPtr->getVelX(),
+            deltaY = entityPtr->getVelY() + entityPtr->getThrust();
 
         // colisão em Y
-        futureCharacterBounds.top += deltaY;
+        futureEntityBounds.top += deltaY;
 
-        if (floatRect.intersects(futureCharacterBounds))
+        if (floatRect.intersects(futureEntityBounds))
         {
             // down
-            if (floatRect.top > futureCharacterBounds.top &&
-                futureCharacterBounds.top + futureCharacterBounds.height >= floatRect.top)
+            if (floatRect.top > futureEntityBounds.top &&
+                futureEntityBounds.top + futureEntityBounds.height >= floatRect.top)
             {
                 colision.down = true;
             }
             // up
-            else if (floatRect.top + floatRect.height < futureCharacterBounds.top + futureCharacterBounds.height &&
-                     futureCharacterBounds.top <= floatRect.top + floatRect.height)
+            else if (floatRect.top + floatRect.height < futureEntityBounds.top + futureEntityBounds.height &&
+                     futureEntityBounds.top <= floatRect.top + floatRect.height)
             {
                 colision.up = true;
             }
         }
 
         // colisão em X
-        futureCharacterBounds = characterBounds;
-        futureCharacterBounds.left += deltaX;
+        futureEntityBounds = entityBounds;
+        futureEntityBounds.left += deltaX;
 
-        if (floatRect.intersects(futureCharacterBounds))
+        if (floatRect.intersects(futureEntityBounds))
         {
             // right
-            if (floatRect.left > futureCharacterBounds.left &&
-                futureCharacterBounds.left + futureCharacterBounds.width >= floatRect.left)
+            if (floatRect.left > futureEntityBounds.left &&
+                futureEntityBounds.left + futureEntityBounds.width >= floatRect.left)
             {
                 colision.right = true;
             }
             // left
-            else if (floatRect.left + floatRect.width < futureCharacterBounds.left + futureCharacterBounds.width &&
-                     futureCharacterBounds.left <= floatRect.left + floatRect.width)
+            else if (floatRect.left + floatRect.width < futureEntityBounds.left + futureEntityBounds.width &&
+                     futureEntityBounds.left <= floatRect.left + floatRect.width)
             {
                 colision.left = true;
             }
@@ -77,7 +77,7 @@ namespace managers
             deltaY = character2Ptr->getVelY() + character2Ptr->getThrust();
 
         futureCharacter2Bounds.top += deltaY, futureCharacter2Bounds.left += deltaX;
-        return this->characterColisionWithFloatRect(characterPtr, futureCharacter2Bounds);
+        return this->entityColisionWithFloatRect(characterPtr, futureCharacter2Bounds);
     }
 
     void ColisionManager::runEnemyColision(Enemy *enemyPtr)
@@ -196,7 +196,7 @@ namespace managers
         {
             FloatRect obstacleBounds = (*it)->getShape()->getGlobalBounds();
 
-            Colision colisions = characterColisionWithFloatRect(characterPtr, obstacleBounds);
+            Colision colisions = entityColisionWithFloatRect(characterPtr, obstacleBounds);
 
             if (colisions.down || colisions.up || colisions.left || colisions.right)
             {
@@ -295,14 +295,11 @@ namespace managers
     {
         projectilePtr->setVelY(gravity * 2);
         FloatRect projectileBounds = projectilePtr->getSprite()->getGlobalBounds();
-        int deltaX = projectilePtr->getVelX(),
-            deltaY = projectilePtr->getVelY() + projectilePtr->getThrust();
 
-        FloatRect playerBounds = player->getSprite()->getGlobalBounds();
-
-        if (projectileBounds.intersects(playerBounds) && player->getAlive())
+        Colision colisionWithPlayer1 = entityColisionWithFloatRect(player, projectileBounds);
+        if (colisionWithPlayer1.down || colisionWithPlayer1.up || colisionWithPlayer1.left || colisionWithPlayer1.right)
         {
-            if (playerBounds.left < projectileBounds.left)
+            if (colisionWithPlayer1.right)
                 player->pushX(-1);
             else
                 player->pushX(1);
@@ -313,10 +310,10 @@ namespace managers
 
         if (player2)
         {
-            FloatRect playerBounds2 = player2->getSprite()->getGlobalBounds();
-            if (projectileBounds.intersects(playerBounds2))
+            Colision ColisionWithPlayer2 = entityColisionWithFloatRect(player2, projectileBounds);
+            if (ColisionWithPlayer2.down || ColisionWithPlayer2.up || ColisionWithPlayer2.left || ColisionWithPlayer2.right)
             {
-                if (playerBounds2.left < projectileBounds.left)
+                if (ColisionWithPlayer2.right)
                     player2->pushX(-1);
                 else
                     player2->pushX(1);
@@ -333,7 +330,8 @@ namespace managers
         for (it = obstacleList.begin(); it != obstacleList.end(); it++)
         {
             FloatRect obstacleBounds = (*it)->getShape()->getGlobalBounds();
-            if (obstacleBounds.intersects(projectileBounds))
+            Colision colisionWithObstacle = entityColisionWithFloatRect(projectilePtr, obstacleBounds);
+            if (colisionWithObstacle.down || colisionWithObstacle.up || colisionWithObstacle.left || colisionWithObstacle.right)
                 projectilePtr->reset();
         }
     }

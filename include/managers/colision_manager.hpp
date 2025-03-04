@@ -38,7 +38,7 @@ namespace managers
                  right = false;
         };
 
-        Colision characterColisionWithFloatRect(Character *characterPtr, FloatRect &floatRect);
+        Colision entityColisionWithFloatRect(Entity *entityPtr, FloatRect &floatRect);
         Colision characterColisionWithCharacter(Character *characterPtr, Character *character2Ptr);
         void runEnemyColision(Enemy *enemyPtr);
 

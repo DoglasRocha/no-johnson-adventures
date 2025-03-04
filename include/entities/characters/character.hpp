@@ -55,5 +55,6 @@ namespace entities::characters
         bool getAlive() const;
         virtual void slowness() = 0;
         virtual void burn() = 0;
+        FloatRect getGlobalBounds();
     };
 }

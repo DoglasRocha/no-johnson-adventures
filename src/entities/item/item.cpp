@@ -71,4 +71,9 @@ namespace entities
     {
         return attack;
     }
+
+    FloatRect Item::getGlobalBounds()
+    {
+        return sprite->getGlobalBounds();
+    }
 }
