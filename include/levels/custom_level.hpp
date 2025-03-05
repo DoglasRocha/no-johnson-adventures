@@ -1,9 +1,12 @@
 #pragma once
 #include <string>
 #include "level.hpp"
+#include <nlohmann/json.hpp>
 
 using levels::Level;
 using std::string;
+
+using json = nlohmann::json;
 
 class CustomLevel : public Level
 {
@@ -20,7 +23,8 @@ public:
                 EventHandler *eventHandler = nullptr,
                 Player *playerPtr = nullptr,
                 Game *gamePtr = nullptr,
-                Player *player2Ptr = nullptr);
+                Player *player2Ptr = nullptr,
+                string path = "");
     ~CustomLevel();
     void run();
     void changeState(int option = 0);
@@ -33,4 +37,7 @@ public:
         NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonReleased,
         NOP::SharedAttribute<int> &atMousePositionX,
         NOP::SharedAttribute<int> &atMousePositionY);
+    json readJson(string path);
+    void buildLevel();
+    void clearRules();
 };

@@ -92,8 +92,9 @@ void Ranking::setupEventHandling(
     END_CONDITION;
     ACTION();
     INSTIGATE(
-        METHOD(playerInput += eventHandler->getEvent().text.unicode;
-               inputText.setString(playerInput);))
+        METHOD(
+            playerInput += eventHandler->getEvent().text.unicode;
+            inputText.setString(playerInput);))
     END_ACTION;
     END_CONDITION;
     END_RULE;

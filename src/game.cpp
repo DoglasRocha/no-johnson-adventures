@@ -36,8 +36,8 @@ Game::
     colisionManager->setPlayer(&CJ);
     colisionManager->setPlayer2(&BigSmoke);
 
-    Menu *menu = new Menu(eventHandler.get(), this);
-    // CustomLevel *menu = new CustomLevel(colisionManager.get(), eventHandler.get(), &CJ, this, nullptr);
+    // Menu *menu = new Menu(eventHandler.get(), this);
+    CustomLevel *menu = new CustomLevel(colisionManager.get(), eventHandler.get(), &CJ, this, nullptr, "../config_level.json");
     currentState = menu;
     eventHandler->subscribe(menu);
 
