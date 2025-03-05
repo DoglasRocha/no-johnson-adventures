@@ -34,7 +34,7 @@ namespace levels
               Player *player2Ptr = nullptr);
         virtual ~Level();
         virtual void run();
-        void setupEventHandling(
+        virtual void setupEventHandling(
             NOP::SharedAttribute<sf::Event::EventType> &atEventType,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyPressed,
             NOP::SharedAttribute<sf::Keyboard::Key> &atKeyReleased,

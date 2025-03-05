@@ -15,9 +15,9 @@ namespace managers
         NOP::SharedAttribute<sf::Event::EventType> atEventType{
             NOP::BuildAttribute(sf::Event::EventType::GainedFocus)};
         NOP::SharedAttribute<sf::Keyboard::Key> atKeyPressed{
-            NOP::BuildAttribute(sf::Keyboard::Escape)};
+            NOP::BuildAttribute(sf::Keyboard::Unknown)};
         NOP::SharedAttribute<sf::Keyboard::Key> atKeyReleased{
-            NOP::BuildAttribute(sf::Keyboard::Escape)};
+            NOP::BuildAttribute(sf::Keyboard::Unknown)};
         NOP::SharedAttribute<sf::Mouse::Button> atMouseButtonPressed{
             NOP::BuildAttribute(sf::Mouse::Middle)};
         NOP::SharedAttribute<sf::Mouse::Button> atMouseButtonReleased{

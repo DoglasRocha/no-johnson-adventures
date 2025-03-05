@@ -46,6 +46,7 @@ Ranking::~Ranking()
     rl1->SetCondition(c1);
     rl2->SetCondition(c1);
     rl3->SetCondition(c1);
+    rl4->SetCondition(c1);
 }
 
 void Ranking::run()
@@ -92,6 +93,18 @@ void Ranking::setupEventHandling(
     ACTION();
     INSTIGATE(
         METHOD(playerInput += eventHandler->getEvent().text.unicode;
+               inputText.setString(playerInput);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE(&rl4);
+    LCONDITION();
+    CEXP(atKeyPressed == sf::Keyboard::BackSpace);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(playerInput = playerInput.substring(0, playerInput.getSize() - 1);
                inputText.setString(playerInput);))
     END_ACTION;
     END_CONDITION;

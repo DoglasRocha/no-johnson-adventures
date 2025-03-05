@@ -3,6 +3,7 @@
 #include "../include/utils/state.hpp"
 #include "../include/levels/level1.hpp"
 #include "../include/levels/level2.hpp"
+#include "../include/levels/custom_level.hpp"
 #include "../include/ui/player_menu.hpp"
 #include "../include/ui/ranking.hpp"
 
@@ -36,6 +37,7 @@ Game::
     colisionManager->setPlayer2(&BigSmoke);
 
     Menu *menu = new Menu(eventHandler.get(), this);
+    // CustomLevel *menu = new CustomLevel(colisionManager.get(), eventHandler.get(), &CJ, this, nullptr);
     currentState = menu;
     eventHandler->subscribe(menu);
 
@@ -136,7 +138,6 @@ void Game::changeState(States state, int param)
         graphicManager->closeWindow();
         break;
     }
-
     delete formerState;
     formerState = nullptr;
 }

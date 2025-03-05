@@ -25,7 +25,7 @@ private:
     Font font;
     String playerInput;
     Text inputText, gameOverText;
-    NOP::SharedRule rl1, rl2, rl3;
+    NOP::SharedRule rl1, rl2, rl3, rl4;
     NOP::SharedCondition c1;
 
 public:

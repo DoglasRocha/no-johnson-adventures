@@ -66,9 +66,7 @@ EventHandler::EventHandler()
     ACTION();
     INSTIGATE(
         METHOD(
-            std::cout << "mouse button released" << std::endl;
-            this->atMouseButtonReleased->SetValue(this->event.mouseButton.button, true);
-            std::cout << "mouse button released" << std::endl;))
+            this->atMouseButtonReleased->SetValue(this->event.mouseButton.button, true);))
     END_ACTION;
 
     END_CONDITION;
@@ -126,11 +124,8 @@ void EventHandler::subscribe(Ente *ente)
 
 void EventHandler::handleEvents()
 {
-    std::cout << "start handle events" << std::endl;
     while (this->pollEvent())
     {
-        std::cout << "poll event " << this->event.type << std::endl;
         this->atEventType->SetValue(this->event.type, true);
     }
-    std::cout << "end handle events" << std::endl;
 }

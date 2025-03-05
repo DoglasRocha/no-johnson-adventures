@@ -271,12 +271,12 @@ namespace managers
             // colide em X
             if (result.left || result.right)
             {
-                result.left ? playerPtr->pushX(-1) : playerPtr->pushX(1);
+                result.left ? playerPtr->pushX(1) : playerPtr->pushX(-1);
                 playerPtr->sufferAttack(enemyVector[i]);
             }
 
             // colide em Y
-            if (result.up || result.down)
+            if (result.up || result.down && (!result.left && !result.right))
             {
                 playerPtr->pushY(result.down),
                     enemyVector[i]->sufferAttack(playerPtr);
@@ -284,8 +284,8 @@ namespace managers
 
             colisionsSum.up = colisionsSum.up || result.up;
             colisionsSum.down = colisionsSum.down || result.down;
-            colisionsSum.left = colisionsSum.left || result.left;
-            colisionsSum.right = colisionsSum.right || result.right;
+            // colisionsSum.left = colisionsSum.left || result.left;
+            // colisionsSum.right = colisionsSum.right || result.right;
         }
 
         return colisionsSum;
