@@ -36,8 +36,7 @@ Game::
     colisionManager->setPlayer(&CJ);
     colisionManager->setPlayer2(&BigSmoke);
 
-    // Menu *menu = new Menu(eventHandler.get(), this);
-    CustomLevel *menu = new CustomLevel(colisionManager.get(), eventHandler.get(), &CJ, this, nullptr, "../config_level.json");
+    Menu *menu = new Menu(eventHandler.get(), this);
     currentState = menu;
     eventHandler->subscribe(menu);
 
@@ -80,6 +79,13 @@ void Game::goToLevel2(int coop)
     currentState = new Level2(colisionManager.get(), eventHandler.get(), &CJ, this, coop ? &BigSmoke : nullptr);
 }
 
+void Game::goToCustomLevel(int coop)
+{
+    CustomLevel *customLevel = new CustomLevel(colisionManager.get(), eventHandler.get(), &CJ, this, coop ? &BigSmoke : nullptr);
+    currentState = customLevel;
+    eventHandler->subscribe(customLevel);
+}
+
 void Game::goToRanking()
 {
     Ranking *ranking = new Ranking(eventHandler.get(), this);
@@ -120,6 +126,10 @@ void Game::changeState(States state, int param)
 
     case States::Level2State:
         this->goToLevel2(param);
+        break;
+
+    case States::CustomLevelState:
+        this->goToCustomLevel(param);
         break;
 
     case States::MenuState:

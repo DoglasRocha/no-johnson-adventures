@@ -2,7 +2,7 @@
 #include "../../include/game.hpp"
 
 Button::Button() : xSize(350),
-                   ySize(150),
+                   ySize(125),
                    x(550),
                    y(0),
                    shape(make_shared<RectangleShape>(Vector2f(xSize, ySize))),

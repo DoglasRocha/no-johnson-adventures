@@ -5,7 +5,22 @@ PlayerMenu::PlayerMenu(EventHandler *eventHandler, Game *gamePtr, int level)
 {
     background = std::make_shared<BackgroundManager>("menu/background.png");
 
-    Game::States state = level == 1 ? Game::States::Level1State : Game::States::Level2State;
+    Game::States state;
+
+    switch (level)
+    {
+    case 1:
+        state = Game::States::Level1State;
+        break;
+
+    case 2:
+        state = Game::States::Level2State;
+        break;
+
+    case 3:
+        state = Game::States::CustomLevelState;
+        break;
+    }
 
     buttonList.push_back(new Button(425, "../assets/menu/button_1_player.png", gamePtr, state, 0));
     eventHandler->subscribe(buttonList.back());
@@ -116,15 +131,19 @@ void PlayerMenu::changeState(int option)
     case 1:
         if (level == 1)
             gamePtr->changeState(Game::States::Level1State, 0);
-        else
+        else if (level == 2)
             gamePtr->changeState(Game::States::Level2State, 0);
+        else
+            gamePtr->changeState(Game::States::CustomLevelState, 0);
         break;
 
     case 2:
         if (level == 1)
             gamePtr->changeState(Game::States::Level1State, 1);
-        else
+        else if (level == 2)
             gamePtr->changeState(Game::States::Level2State, 1);
+        else
+            gamePtr->changeState(Game::States::CustomLevelState, 1);
         break;
     }
 }

@@ -20,15 +20,19 @@ Menu::Menu(EventHandler *eventHandler, Game *gamePtr)
     buttonList.push_back(newButton);
     eventHandler->subscribe(newButton);
 
-    newButton = new Button(425, "../assets/menu/button_level_2.png", gamePtr, Game::States::PlayerMenuState, 2);
+    newButton = new Button(400, "../assets/menu/button_level_2.png", gamePtr, Game::States::PlayerMenuState, 2);
     buttonList.push_back(newButton);
     eventHandler->subscribe(newButton);
 
-    newButton = new Button(600, "../assets/menu/ranking_button.png", gamePtr, Game::States::RankingState, 0);
+    newButton = new Button(550, "../assets/menu/button_custom_level.png", gamePtr, Game::States::PlayerMenuState, 3);
     buttonList.push_back(newButton);
     eventHandler->subscribe(newButton);
 
-    newButton = new Button(775, "../assets/menu/exit_button.png", gamePtr, Game::States::Exit, 0);
+    newButton = new Button(700, "../assets/menu/ranking_button.png", gamePtr, Game::States::RankingState, 0);
+    buttonList.push_back(newButton);
+    eventHandler->subscribe(newButton);
+
+    newButton = new Button(850, "../assets/menu/exit_button.png", gamePtr, Game::States::Exit, 0);
     buttonList.push_back(newButton);
     eventHandler->subscribe(newButton);
 }
@@ -121,12 +125,12 @@ void Menu::resetButtons()
 
 void Menu::operator++()
 {
-    cont = cont < 4 ? cont + 1 : 1;
+    cont = cont < 5 ? cont + 1 : 1;
 }
 
 void Menu::operator--()
 {
-    cont = cont > 1 ? cont - 1 : 4;
+    cont = cont > 1 ? cont - 1 : 5;
 }
 
 void Menu::changeState(int option)
@@ -140,9 +144,12 @@ void Menu::changeState(int option)
         gamePtr->changeState(Game::States::PlayerMenuState, 2);
         break;
     case 3:
-        gamePtr->changeState(Game::States::RankingState, 0);
+        gamePtr->changeState(Game::States::PlayerMenuState, 3);
         break;
     case 4:
+        gamePtr->changeState(Game::States::RankingState, 0);
+        break;
+    case 5:
         ptrGM->closeWindow();
     default:
         break;

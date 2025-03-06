@@ -1,4 +1,5 @@
 #include <fstream>
+#include <filesystem>
 
 #include "../../include/levels/level.hpp"
 #include "../../include/game.hpp"
@@ -87,7 +88,6 @@ void CustomLevel::setupEventHandling(
 {
     if (path == "")
     {
-
         RULE(&rl2);
         LCONDITION();
         CEXP(atKeyPressed == sf::Keyboard::Return);
@@ -95,8 +95,8 @@ void CustomLevel::setupEventHandling(
         ACTION();
         INSTIGATE(
             METHOD(
-                buildLevel();
-                clearRules();))
+                atKeyPressed->SetValue(sf::Keyboard::Unknown);
+                buildLevel();))
         END_ACTION;
         END_CONDITION;
         END_RULE;
@@ -119,8 +119,11 @@ void CustomLevel::setupEventHandling(
         END_CONDITION;
         ACTION();
         INSTIGATE(
-            METHOD(playerInput = eventHandler->getEvent().text.unicode != 8 ? playerInput + eventHandler->getEvent().text.unicode : playerInput;
-                   inputText.setString(playerInput);))
+            METHOD(
+                char c = eventHandler->getEvent().text.unicode;
+                if (c != 8 && c != 13)
+                    playerInput += c;
+                inputText.setString(playerInput);))
         END_ACTION;
         END_CONDITION;
         END_RULE;
@@ -144,21 +147,23 @@ json CustomLevel::readJson(string path)
     std::ifstream file(path);
     if (!file)
     {
+        file.close();
         pathText.setString("Arquivo nao encontrado. Digite novamente seu caminho:");
         return json();
     }
 
     json j = json::parse(file);
+    file.close();
     return j;
 }
 
 void CustomLevel::buildLevel()
 {
-    path = path == "" ? playerInput.toAnsiString() : path;
-    json j = readJson(path);
+    json j = readJson(playerInput.toAnsiString());
     if (j.empty())
         return;
 
+    path = path == "" ? playerInput.toAnsiString() : path;
     string bg_path = j["background"];
     background = std::make_shared<BackgroundManager>(bg_path);
 
@@ -222,6 +227,13 @@ void CustomLevel::buildLevel()
     player1Ptr->setX(playerPos["x"]);
     player1Ptr->setY(playerPos["y"]);
     player1Ptr->getSprite()->setPosition(playerPos["x"], playerPos["y"]);
+
+    if (player2Ptr)
+    {
+        player2Ptr->setX(playerPos["x"]);
+        player2Ptr->setY(playerPos["y"]);
+        player2Ptr->getSprite()->setPosition(playerPos["x"], playerPos["y"]);
+    }
 }
 
 void CustomLevel::clearRules()

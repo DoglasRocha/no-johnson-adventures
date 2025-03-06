@@ -5,14 +5,14 @@
       {
         "type": "platform",
         "x": 0,
-        "y": 950,
+        "y": 650,
         "width": 7500,
         "height": 50
       },
       {
         "type": "platform",
         "x": 0,
-        "y": 650,
+        "y": 950,
         "width": 7500,
         "height": 50
       },

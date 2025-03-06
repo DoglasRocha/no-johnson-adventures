@@ -27,6 +27,7 @@ public:
     {
         Level1State,
         Level2State,
+        CustomLevelState,
         RankingState,
         MenuState,
         PlayerMenuState,
@@ -38,6 +39,7 @@ public:
     void resetScore();
     void goToLevel1(int coop);
     void goToLevel2(int coop);
+    void goToCustomLevel(int coop);
     void goToRanking();
     void goToMenu();
     void goToPlayerMenu(int level);
