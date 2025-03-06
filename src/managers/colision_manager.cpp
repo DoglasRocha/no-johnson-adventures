@@ -10,7 +10,6 @@ namespace managers
 {
     ColisionManager::ColisionManager() : gravity(1)
     {
-        projectilePtr = nullptr;
         player2 = nullptr;
     }
 
@@ -157,8 +156,10 @@ namespace managers
         // player
         runPlayerColisions(player);
         runPlayerColisions(player2);
-        if (projectilePtr)
-            runProjectileColisionWithEntity();
+
+        // items
+        for (int i = 0, l = itemVector.size(); i < l; i++)
+            runItemColisionWithEntity(itemVector[i]);
     }
 
     void ColisionManager::runPlayerColisions(Player *playerPtr)
@@ -242,9 +243,9 @@ namespace managers
         player2 = player2Ptr;
     }
 
-    void ColisionManager::setProjectile(Projectile *projectilePtr)
+    void ColisionManager::addItem(Item *itemPtr)
     {
-        this->projectilePtr = projectilePtr;
+        this->itemVector.push_back(itemPtr);
     }
 
     vector<Enemy *> ColisionManager::getEnemyVector()
@@ -291,10 +292,10 @@ namespace managers
         return colisionsSum;
     }
 
-    void ColisionManager::runProjectileColisionWithEntity()
+    void ColisionManager::runItemColisionWithEntity(Item *itemPtr)
     {
-        projectilePtr->setVelY(gravity * 2);
-        FloatRect projectileBounds = projectilePtr->getSprite()->getGlobalBounds();
+        itemPtr->setVelY(gravity * 2);
+        FloatRect projectileBounds = itemPtr->getSprite()->getGlobalBounds();
 
         Colision colisionWithPlayer1 = entityColisionWithFloatRect(player, projectileBounds);
         if (colisionWithPlayer1.down || colisionWithPlayer1.up || colisionWithPlayer1.left || colisionWithPlayer1.right)
@@ -303,9 +304,9 @@ namespace managers
                 player->pushX(-1);
             else
                 player->pushX(1);
-            projectilePtr->reset();
+            itemPtr->reset();
 
-            player->sufferAttack(projectilePtr->getAttack());
+            player->sufferAttack(itemPtr->getAttack());
         }
 
         if (player2)
@@ -317,22 +318,22 @@ namespace managers
                     player2->pushX(-1);
                 else
                     player2->pushX(1);
-                projectilePtr->reset();
+                itemPtr->reset();
 
-                player2->sufferAttack(projectilePtr->getAttack());
+                player2->sufferAttack(itemPtr->getAttack());
             }
         }
 
-        projectilePtr->moveX();
-        projectilePtr->moveY();
+        itemPtr->moveX();
+        itemPtr->moveY();
 
         std::list<Obstacle *>::iterator it;
         for (it = obstacleList.begin(); it != obstacleList.end(); it++)
         {
             FloatRect obstacleBounds = (*it)->getShape()->getGlobalBounds();
-            Colision colisionWithObstacle = entityColisionWithFloatRect(projectilePtr, obstacleBounds);
+            Colision colisionWithObstacle = entityColisionWithFloatRect(itemPtr, obstacleBounds);
             if (colisionWithObstacle.down || colisionWithObstacle.up || colisionWithObstacle.left || colisionWithObstacle.right)
-                projectilePtr->reset();
+                itemPtr->reset();
         }
     }
 

@@ -46,6 +46,7 @@ namespace entities
         const int getAttack() const;
         virtual void moveX() = 0;
         virtual void moveY() = 0;
+        virtual void reset() = 0;
         FloatRect getGlobalBounds();
     };
 }

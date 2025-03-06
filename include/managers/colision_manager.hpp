@@ -22,9 +22,9 @@ namespace managers
         const int gravity;
         Player *player;
         Player *player2;
-        Projectile *projectilePtr;
         std::vector<Enemy *> enemyVector;
         std::list<Obstacle *> obstacleList;
+        std::vector<Item *> itemVector;
 
         ColisionManager();
         bool moveX, moveY;
@@ -55,10 +55,10 @@ namespace managers
         void showHitbox(int x, int y, int width, int height);
         void setPlayer(Player *playerPtr);
         void setPlayer2(Player *player2Ptr);
-        void setProjectile(Projectile *projectilePtr);
+        void addItem(Item *itemPtr);
         Colision runObstacleColisions(Character *characterPtr);
         Colision runPlayerColisionWithEnemy(Player *playerPtr);
-        void runProjectileColisionWithEntity();
+        void runItemColisionWithEntity(Item *itemPtr);
         void clearLists();
         void deleteProjectile();
     };

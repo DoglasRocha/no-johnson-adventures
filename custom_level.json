@@ -32,33 +32,592 @@
       },
       {
         "type": "bush",
-        "x": 90,
-        "y": 0,
+        "x": 150,
+        "y": 650,
         "width": 10,
         "height": 100
       },
       {
         "type": "fire",
-        "x": 0,
-        "y": 90,
+        "x": 300,
+        "y": 650,
         "width": 100,
         "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 450,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 600,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 750,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 900,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 1050,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 1200,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 1350,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 1500,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 1650,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 1800,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 1950,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 2100,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 2250,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 2400,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 2550,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 2700,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 2850,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 3000,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 3150,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 3300,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 3450,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 3600,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 3750,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 3900,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 4050,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 4200,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 4350,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 4500,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 4650,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 4800,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 4950,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 5100,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 5250,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 5400,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 5550,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 5700,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 5850,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 6000,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 6150,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 6300,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 6450,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 6600,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 6750,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 6900,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 7050,
+        "y": 650,
+        "width": 10,
+        "height": 100
+      },
+      {
+        "type": "fire",
+        "x": 7200,
+        "y": 650,
+        "width": 100,
+        "height": 10
+      },
+      {
+        "type": "bush",
+        "x": 7350,
+        "y": 650,
+        "width": 10,
+        "height": 100
       }
     ],
     "enemies": [
       {
         "type": "bigNose",
         "x": 150,
-        "y": 150
-      },
-      {
-        "type": "bat",
-        "x": 150,
-        "y": 150
+        "y": 250
       },
       {
         "type": "minotaur",
-        "x": 250,
+        "x": 300,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 450,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 600,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 750,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 900,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 1050,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 1200,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 1350,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 1500,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 1650,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 1800,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 1950,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 2100,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 2250,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 2400,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 2550,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 2700,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 2850,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 3000,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 3150,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 3300,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 3450,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 3600,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 3750,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 3900,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 4050,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 4200,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 4350,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 4500,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 4650,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 4800,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 4950,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 5100,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 5250,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 5400,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 5550,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 5700,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 5850,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 6000,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 6150,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 6300,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 6450,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 6600,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 6750,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 6900,
+        "y": 250
+      },
+      {
+        "type": "minotaur",
+        "x": 7050,
+        "y": 250
+      },
+      {
+        "type": "bat",
+        "x": 7200,
+        "y": 250
+      },
+      {
+        "type": "bigNose",
+        "x": 7350,
         "y": 250
       }
     ],

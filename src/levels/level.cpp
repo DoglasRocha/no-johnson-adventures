@@ -120,6 +120,6 @@ namespace levels
         Projectile *newProjectile = new Projectile(minotaurPtr);
         if (newProjectile)
             entityList.append(newProjectile),
-                colisionManager->setProjectile(newProjectile);
+                colisionManager->addItem(newProjectile);
     }
 }
