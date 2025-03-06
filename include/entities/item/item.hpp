@@ -48,5 +48,7 @@ namespace entities
         virtual void moveY() = 0;
         virtual void reset() = 0;
         FloatRect getGlobalBounds();
+        void scaleSprite(float xFactor, float yFactor);
+        void setOriginToCenter();
     };
 }

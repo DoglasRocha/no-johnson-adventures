@@ -38,5 +38,6 @@ namespace entities::characters
         void resetScore();
         int getScore();
         void addScore(int score);
+        int getBaseLives();
     };
 }

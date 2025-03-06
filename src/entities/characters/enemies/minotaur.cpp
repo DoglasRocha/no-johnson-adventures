@@ -52,4 +52,9 @@ namespace entities::characters
     void Minotaur::burn()
     {
     }
+
+    int Minotaur::getBaseLives()
+    {
+        return 120;
+    }
 }

@@ -54,3 +54,8 @@ void BigNose::slowness()
 void BigNose::burn()
 {
 }
+
+int BigNose::getBaseLives()
+{
+    return 20;
+}

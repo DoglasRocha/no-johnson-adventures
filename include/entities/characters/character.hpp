@@ -56,5 +56,6 @@ namespace entities::characters
         virtual void slowness() = 0;
         virtual void burn() = 0;
         FloatRect getGlobalBounds();
+        virtual int getBaseLives() = 0;
     };
 }

@@ -30,5 +30,6 @@ namespace entities::characters
         void slowness();
         void burn();
         int getPoints();
+        virtual int getBaseLives() = 0;
     };
 }

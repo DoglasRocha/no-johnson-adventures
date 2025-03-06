@@ -25,6 +25,7 @@ namespace managers
         std::vector<Enemy *> enemyVector;
         std::list<Obstacle *> obstacleList;
         std::vector<Item *> itemVector;
+        Enemy *neutralizedEnemy;
 
         ColisionManager();
         bool moveX, moveY;
@@ -61,5 +62,6 @@ namespace managers
         void runItemColisionWithEntity(Item *itemPtr);
         void clearLists();
         void deleteProjectile();
+        Enemy *getNeutralizedEnemy();
     };
 }

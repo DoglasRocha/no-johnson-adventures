@@ -77,4 +77,8 @@ namespace entities::characters
     {
     }
 
+    int Bat::getBaseLives()
+    {
+        return 40;
+    }
 }

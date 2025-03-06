@@ -92,3 +92,8 @@ void Player::addScore(int score)
 {
     this->score += score;
 }
+
+int Player::getBaseLives()
+{
+    return 100;
+}

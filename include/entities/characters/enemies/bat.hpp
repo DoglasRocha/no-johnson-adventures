@@ -21,5 +21,6 @@ namespace entities::characters
         void burn();
         int getAttack();
         void setThrust(const int thrust);
+        int getBaseLives();
     };
 }

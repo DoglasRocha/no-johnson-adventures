@@ -18,5 +18,6 @@ namespace entities::characters
         int getAttack();
         void slowness();
         void burn();
+        int getBaseLives();
     };
 }

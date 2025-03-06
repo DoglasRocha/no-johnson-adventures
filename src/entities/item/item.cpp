@@ -76,4 +76,19 @@ namespace entities
     {
         return sprite->getGlobalBounds();
     }
+
+    void Item::scaleSprite(const float xFactor, const float yFactor)
+    {
+        sprite->scale(xFactor, yFactor);
+        FloatRect bounds = sprite->getGlobalBounds();
+        x = bounds.left;
+        y = bounds.top;
+    }
+
+    void Item::setOriginToCenter()
+    {
+        FloatRect bounds = sprite->getLocalBounds();
+        sprite->setOrigin(bounds.width / 2, bounds.height / 2);
+        sprite->setPosition(x + bounds.width / 2, y + bounds.height / 2);
+    }
 }
