@@ -1,3 +1,4 @@
+Dog 650
 aaa 600
 aaa 220
 ddd 220
@@ -7,4 +8,3 @@ aaa 210
 qqq 210
 daa 200
 aaa 200
-was 190

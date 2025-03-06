@@ -6,6 +6,7 @@
 #include "../../include/entities/obstacles/fire.hpp"
 #include "../../include/entities/characters/enemies/big_nose.hpp"
 #include "../../include/entities/characters/enemies/bat.hpp"
+#include "../../include/entities/item/potion.hpp"
 
 Level2::Level2(ColisionManager *colisionManager, EventHandler *eventHandler, Player *playerPtr, Game *gamePtr, Player *player2Ptr)
     : Level(colisionManager, eventHandler, playerPtr, gamePtr, player2Ptr)
@@ -67,10 +68,20 @@ void Level2::changeState(int option)
     if (!player1Ptr->getAlive())
     {
         gamePtr->changeState(Game::States::RankingState, 0);
+        return;
     }
     else if (colisionManager->getEnemyVector().empty())
     {
         gamePtr->changeState(Game::States::RankingState, 0);
+        return;
+    }
+
+    Enemy *neutralizedEnemy = colisionManager->getNeutralizedEnemy();
+    if (neutralizedEnemy)
+    {
+        Item *item = new Potion(neutralizedEnemy);
+        colisionManager->addItem(item);
+        entityList.append(item);
     }
 }
 

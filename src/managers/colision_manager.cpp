@@ -342,7 +342,27 @@ namespace managers
         }
         else if (itemPtr->isConsumable())
         {
+            FloatRect itemBounds = itemPtr->getGlobalBounds();
+            Colision colisionWithPlayer1 = entityColisionWithFloatRect(player, itemBounds);
+            if (colisionWithPlayer1.down || colisionWithPlayer1.up || colisionWithPlayer1.left || colisionWithPlayer1.right)
+            {
+                itemPtr->interact(player);
+                itemVector.erase(std::remove(itemVector.begin(), itemVector.end(), itemPtr));
+            }
+
+            if (player2)
+            {
+                Colision ColisionWithPlayer2 = entityColisionWithFloatRect(player2, itemBounds);
+                if (ColisionWithPlayer2.down || ColisionWithPlayer2.up || ColisionWithPlayer2.left || ColisionWithPlayer2.right)
+                {
+                    itemPtr->interact(player2);
+                    itemVector.erase(std::remove(itemVector.begin(), itemVector.end(), itemPtr));
+                }
+            }
+
             Colision colisionSum;
+
+            // colisão com obstaculo
             for (auto &obstacle : obstacleList)
             {
                 FloatRect obstacleBounds = obstacle->getShape()->getGlobalBounds();
@@ -372,6 +392,7 @@ namespace managers
     {
         enemyVector.clear();
         obstacleList.clear();
+        neutralizedEnemy = nullptr;
     }
 
     void ColisionManager::deleteProjectile()

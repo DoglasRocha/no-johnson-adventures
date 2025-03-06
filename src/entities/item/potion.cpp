@@ -52,5 +52,7 @@ namespace entities
 
     void Potion::interact(characters::Character *character)
     {
+        character->sufferAttack(this->attack);
+        this->shouldDraw = false;
     }
 }

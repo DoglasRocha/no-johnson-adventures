@@ -66,10 +66,12 @@ void Level1::changeState(int option)
     if (!player1Ptr->getAlive())
     {
         gamePtr->changeState(Game::States::RankingState, 0);
+        return;
     }
     else if (colisionManager->getEnemyVector().empty())
     {
         gamePtr->changeState(Game::States::Level2State, player2Ptr ? 1 : 0);
+        return;
     }
 
     Enemy *neutralizedEnemy = colisionManager->getNeutralizedEnemy();

@@ -4,6 +4,7 @@
 #include "../../include/levels/level.hpp"
 #include "../../include/game.hpp"
 #include "../../include/levels/custom_level.hpp"
+#include "../../include/entities/item/potion.hpp"
 
 CustomLevel::CustomLevel(ColisionManager *colisionManager,
                          EventHandler *eventHandler,
@@ -66,10 +67,20 @@ void CustomLevel::changeState(int option)
     if (!player1Ptr->getAlive())
     {
         gamePtr->changeState(Game::States::RankingState, 0);
+        return;
     }
     else if (colisionManager->getEnemyVector().empty())
     {
         gamePtr->changeState(Game::States::RankingState, 0);
+        return;
+    }
+
+    Enemy *neutralizedEnemy = colisionManager->getNeutralizedEnemy();
+    if (neutralizedEnemy)
+    {
+        Item *item = new Potion(neutralizedEnemy);
+        colisionManager->addItem(item);
+        entityList.append(item);
     }
 }
 

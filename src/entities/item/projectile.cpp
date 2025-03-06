@@ -47,11 +47,11 @@ namespace entities
         }
         else
         {
-            x = owner->getX() + 200;
+            x = owner->getX() + 100;
             velX = 12;
         }
 
-        y = owner->getY() + 50;
+        y = owner->getY();
         sprite->setPosition(x, y);
     }
 

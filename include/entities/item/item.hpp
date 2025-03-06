@@ -19,6 +19,7 @@ namespace entities
         std::shared_ptr<Sprite> sprite;
         std::string direction;
         characters::Character *owner;
+        bool shouldDraw;
 
     public:
         Item(std::string kind, std::string texturePath);

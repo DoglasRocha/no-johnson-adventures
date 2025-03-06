@@ -2,7 +2,7 @@
 
 namespace entities
 {
-    Item::Item(std::string kind, std::string texturePath) : kind(kind), owner(nullptr), attack(0)
+    Item::Item(std::string kind, std::string texturePath) : kind(kind), owner(nullptr), attack(0), shouldDraw(true)
     {
         texture = std::make_shared<Texture>();
         if (!texture->loadFromFile(texturePath))
@@ -18,7 +18,8 @@ namespace entities
 
     void Item::draw()
     {
-        ptrGM->drawElement(*sprite);
+        if (shouldDraw)
+            ptrGM->drawElement(*sprite);
     }
 
     sf::Drawable *Item::getDraw()
