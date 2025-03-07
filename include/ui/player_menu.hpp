@@ -19,6 +19,8 @@ private:
     Game *gamePtr;
     NOP::SharedRule rl1, rl2, rl3;
     NOP::SharedCondition c1;
+    NOP::SharedAttribute<int> atNewLevel{NOP::BuildAttribute(-1)};
+    NOP::SharedAttribute<int> atCoop{NOP::BuildAttribute(-1)};
 
 public:
     PlayerMenu(EventHandler *eventHandler = nullptr, Game *gamePtr = nullptr, int level = 1);
@@ -37,4 +39,5 @@ public:
     void operator++();
     void operator--();
     void changeState(int option = 0);
+    void setupRules();
 };

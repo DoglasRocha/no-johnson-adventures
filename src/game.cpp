@@ -23,7 +23,7 @@ Game::
     Game() : graphicManager(GraphicManager::getInstance()),
              eventHandler(EventHandler::getInstance()),
              colisionManager(ColisionManager::getInstance()),
-             formerState(nullptr)
+             formerState(nullptr), currentState(nullptr), param(-1)
 {
     srand(time(NULL));
     Ente::setGraphicManager(graphicManager);
@@ -36,9 +36,8 @@ Game::
     colisionManager->setPlayer(&CJ);
     colisionManager->setPlayer2(&BigSmoke);
 
-    Menu *menu = new Menu(eventHandler.get(), this);
-    currentState = menu;
-    eventHandler->subscribe(menu);
+    setupRules();
+    this->changeState(States::MenuState, 0);
 
     while (graphicManager->checkWindowOpen())
     {
@@ -115,39 +114,101 @@ void Game::changeState(States state, int param)
     CJ.reset();
     BigSmoke.reset();
     colisionManager->clearLists();
-
     formerState = currentState;
 
-    switch (state)
+    this->param = param;
+    atNewState->SetValue(state);
+
+    if (formerState != nullptr)
     {
-    case States::Level1State:
-        this->goToLevel1(param);
-        break;
-
-    case States::Level2State:
-        this->goToLevel2(param);
-        break;
-
-    case States::CustomLevelState:
-        this->goToCustomLevel(param);
-        break;
-
-    case States::MenuState:
-        this->goToMenu();
-        break;
-
-    case States::RankingState:
-        this->goToRanking();
-        break;
-
-    case States::PlayerMenuState:
-        this->goToPlayerMenu(param);
-        break;
-
-    case States::Exit:
-        graphicManager->closeWindow();
-        break;
+        delete formerState;
+        formerState = nullptr;
     }
-    delete formerState;
-    formerState = nullptr;
+}
+
+void Game::setupRules()
+{
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == States::MenuState);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->goToMenu();))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == States::Level1State);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->goToLevel1(param);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == States::Level2State);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->goToLevel2(param);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == States::CustomLevelState);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->goToCustomLevel(param);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == States::RankingState);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->goToRanking();))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == States::PlayerMenuState);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->goToPlayerMenu(param);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == States::Exit);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            graphicManager->closeWindow();))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
 }

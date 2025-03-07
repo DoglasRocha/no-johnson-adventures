@@ -10,15 +10,13 @@ class Button : public Ente
 {
 private:
     const int xSize, ySize, x;
-    int y, param;
+    int y;
     std::shared_ptr<Shape> shape;
     std::shared_ptr<Texture> texture;
-    Game *gamePtr;
-    Game::States state;
 
 public:
     Button();
-    Button(const int y, const string texturePath, Game *gamePtr, Game::States state, int param);
+    Button(const int y, const string texturePath);
     ~Button();
     void run();
     void setupEventHandling(

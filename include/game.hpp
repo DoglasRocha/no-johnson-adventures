@@ -12,16 +12,8 @@ using namespace managers;
 using namespace entities::characters;
 using namespace entities::obstacles;
 
-class Game
+class Game : public NOP::FBE
 {
-private:
-    std::shared_ptr<GraphicManager> graphicManager;
-    std::shared_ptr<EventHandler> eventHandler;
-    std::shared_ptr<ColisionManager> colisionManager;
-    Player1 CJ;
-    Player2 BigSmoke;
-    State *formerState, *currentState;
-
 public:
     enum States
     {
@@ -31,8 +23,22 @@ public:
         RankingState,
         MenuState,
         PlayerMenuState,
-        Exit
+        Exit,
+        Blank
     };
+
+private:
+    std::shared_ptr<GraphicManager> graphicManager;
+    std::shared_ptr<EventHandler> eventHandler;
+    std::shared_ptr<ColisionManager> colisionManager;
+    Player1 CJ;
+    Player2 BigSmoke;
+    State *formerState, *currentState;
+    NOP::SharedAttribute<States> atNewState{NOP::BuildAttribute(States::Blank)};
+    int param;
+    void setupRules();
+
+public:
     Game();
     ~Game();
     int getScore();

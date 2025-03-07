@@ -21,6 +21,7 @@ private:
     Font font;
     NOP::SharedRule rl1, rl2, rl3;
     NOP::SharedCondition c1;
+    NOP::SharedAttribute<int> atNewState{NOP::BuildAttribute(-1)};
 
 public:
     Menu(EventHandler *eventHandler = nullptr, Game *gamePtr = nullptr);
@@ -39,4 +40,5 @@ public:
     void operator++();
     void operator--();
     void changeState(int option = 0);
+    void setupRules();
 };

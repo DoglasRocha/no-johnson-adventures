@@ -16,25 +16,27 @@ Menu::Menu(EventHandler *eventHandler, Game *gamePtr)
     title.setOutlineThickness(10);
     title.setPosition(100, 75);
 
-    Button *newButton = new Button(250, "../assets/menu/button_level_1.png", gamePtr, Game::States::PlayerMenuState, 1);
+    Button *newButton = new Button(250, "../assets/menu/button_level_1.png");
     buttonList.push_back(newButton);
     eventHandler->subscribe(newButton);
 
-    newButton = new Button(400, "../assets/menu/button_level_2.png", gamePtr, Game::States::PlayerMenuState, 2);
+    newButton = new Button(400, "../assets/menu/button_level_2.png");
     buttonList.push_back(newButton);
     eventHandler->subscribe(newButton);
 
-    newButton = new Button(550, "../assets/menu/button_custom_level.png", gamePtr, Game::States::PlayerMenuState, 3);
+    newButton = new Button(550, "../assets/menu/button_custom_level.png");
     buttonList.push_back(newButton);
     eventHandler->subscribe(newButton);
 
-    newButton = new Button(700, "../assets/menu/ranking_button.png", gamePtr, Game::States::RankingState, 0);
+    newButton = new Button(700, "../assets/menu/ranking_button.png");
     buttonList.push_back(newButton);
     eventHandler->subscribe(newButton);
 
-    newButton = new Button(850, "../assets/menu/exit_button.png", gamePtr, Game::States::Exit, 0);
+    newButton = new Button(850, "../assets/menu/exit_button.png");
     buttonList.push_back(newButton);
     eventHandler->subscribe(newButton);
+
+    setupRules();
 }
 
 Menu::~Menu()
@@ -135,23 +137,63 @@ void Menu::operator--()
 
 void Menu::changeState(int option)
 {
-    switch (option)
-    {
-    case 1:
-        gamePtr->changeState(Game::States::PlayerMenuState, 1);
-        break;
-    case 2:
-        gamePtr->changeState(Game::States::PlayerMenuState, 2);
-        break;
-    case 3:
-        gamePtr->changeState(Game::States::PlayerMenuState, 3);
-        break;
-    case 4:
-        gamePtr->changeState(Game::States::RankingState, 0);
-        break;
-    case 5:
-        ptrGM->closeWindow();
-    default:
-        break;
-    }
+    atNewState->SetValue(option);
+}
+
+void Menu::setupRules()
+{
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == 1);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::PlayerMenuState, 1);))
+    END_ACTION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == 2);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::PlayerMenuState, 2);))
+    END_ACTION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == 3);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::PlayerMenuState, 3);))
+    END_ACTION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == 4);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::RankingState, 0);))
+    END_ACTION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == 5);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            ptrGM->closeWindow();))
+    END_ACTION;
+    END_RULE;
 }

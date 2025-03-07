@@ -1,32 +1,18 @@
 #include "../include/ui/player_menu.hpp"
 
 PlayerMenu::PlayerMenu(EventHandler *eventHandler, Game *gamePtr, int level)
-    : eventHandler(eventHandler), gamePtr(gamePtr), level(level)
+    : eventHandler(eventHandler), gamePtr(gamePtr)
 {
+    atNewLevel->SetValue(level);
     background = std::make_shared<BackgroundManager>("menu/background.png");
 
-    Game::States state;
-
-    switch (level)
-    {
-    case 1:
-        state = Game::States::Level1State;
-        break;
-
-    case 2:
-        state = Game::States::Level2State;
-        break;
-
-    case 3:
-        state = Game::States::CustomLevelState;
-        break;
-    }
-
-    buttonList.push_back(new Button(425, "../assets/menu/button_1_player.png", gamePtr, state, 0));
+    buttonList.push_back(new Button(425, "../assets/menu/button_1_player.png"));
     eventHandler->subscribe(buttonList.back());
 
-    buttonList.push_back(new Button(600, "../assets/menu/button_2_players.png", gamePtr, state, 1));
+    buttonList.push_back(new Button(600, "../assets/menu/button_2_players.png"));
     eventHandler->subscribe(buttonList.back());
+
+    setupRules();
 }
 
 PlayerMenu::~PlayerMenu()
@@ -126,24 +112,86 @@ void PlayerMenu::operator--()
 
 void PlayerMenu::changeState(int option)
 {
-    switch (option)
-    {
-    case 1:
-        if (level == 1)
-            gamePtr->changeState(Game::States::Level1State, 0);
-        else if (level == 2)
-            gamePtr->changeState(Game::States::Level2State, 0);
-        else
-            gamePtr->changeState(Game::States::CustomLevelState, 0);
-        break;
+    atCoop->SetValue(option);
+}
 
-    case 2:
-        if (level == 1)
-            gamePtr->changeState(Game::States::Level1State, 1);
-        else if (level == 2)
-            gamePtr->changeState(Game::States::Level2State, 1);
-        else
-            gamePtr->changeState(Game::States::CustomLevelState, 1);
-        break;
-    }
+void PlayerMenu::setupRules()
+{
+    RULE();
+    LCONDITION();
+    CEXP(atNewLevel == 1)
+    AND CEXP(atCoop == 1);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::Level1State, 0);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewLevel == 2)
+    AND CEXP(atCoop == 1);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::Level2State, 0);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewLevel == 3)
+    AND CEXP(atCoop == 1);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::CustomLevelState, 0);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewLevel == 1)
+    AND CEXP(atCoop == 2);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::Level1State, 1);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewLevel == 2)
+    AND CEXP(atCoop == 2);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::Level2State, 1);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewLevel == 3)
+    AND CEXP(atCoop == 2);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::CustomLevelState, 1);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
 }

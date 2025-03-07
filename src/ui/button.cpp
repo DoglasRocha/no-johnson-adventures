@@ -6,17 +6,12 @@ Button::Button() : xSize(350),
                    x(550),
                    y(0),
                    shape(make_shared<RectangleShape>(Vector2f(xSize, ySize))),
-                   texture(make_shared<Texture>()),
-                   param(0),
-                   gamePtr(nullptr)
+                   texture(make_shared<Texture>())
 {
 }
 
-Button::Button(const int y, const string texturePath, Game *gamePtr, Game::States state, int param) : Button()
+Button::Button(const int y, const string texturePath) : Button()
 {
-    this->state = state;
-    this->gamePtr = gamePtr;
-    this->param = param;
     this->y = y;
     if (!texture->loadFromFile(texturePath))
     {
