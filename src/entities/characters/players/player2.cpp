@@ -80,7 +80,7 @@ void Player2::setupEventHandling(
                 this->setDirection("right");
                 sprite.scale(-1.f, 1);
             } this->setDirection("right");
-            this->setVelX(5);))
+            this->setVelX(6);))
     END_ACTION;
     END_CONDITION;
     END_RULE;

@@ -347,7 +347,7 @@ namespace managers
             if (colisionWithPlayer1.down || colisionWithPlayer1.up || colisionWithPlayer1.left || colisionWithPlayer1.right)
             {
                 itemPtr->interact(player);
-                itemVector.erase(std::remove(itemVector.begin(), itemVector.end(), itemPtr));
+                itemVector.erase(std::find(itemVector.begin(), itemVector.end(), itemPtr));
             }
 
             if (player2)
@@ -356,7 +356,7 @@ namespace managers
                 if (ColisionWithPlayer2.down || ColisionWithPlayer2.up || ColisionWithPlayer2.left || ColisionWithPlayer2.right)
                 {
                     itemPtr->interact(player2);
-                    itemVector.erase(std::remove(itemVector.begin(), itemVector.end(), itemPtr));
+                    itemVector.erase(std::find(itemVector.begin(), itemVector.end(), itemPtr));
                 }
             }
 
@@ -392,6 +392,7 @@ namespace managers
     {
         enemyVector.clear();
         obstacleList.clear();
+        itemVector.clear();
         neutralizedEnemy = nullptr;
     }
 
