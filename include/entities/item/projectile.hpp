@@ -8,6 +8,12 @@ namespace entities
 {
     class Projectile : public Item
     {
+    private:
+        NOP::SharedAttribute<sf::Time> atResetTick{NOP::BuildAttribute(sf::Time::Zero)};
+        NOP::SharedAttribute<sf::Time> atElapsedTime{NOP::BuildAttribute(sf::Time::Zero)};
+        NOP::SharedAttribute<bool> atForceReset{NOP::BuildAttribute(false)};
+        sf::Clock attackClock;
+
     public:
         Projectile(characters::Character *owner);
         ~Projectile();
@@ -18,5 +24,7 @@ namespace entities
         void moveX();
         void moveY();
         void interact(characters::Character *character);
+        void setupRules();
+        void execReset();
     };
 }

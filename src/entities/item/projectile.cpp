@@ -11,6 +11,8 @@ namespace entities
     {
         this->owner = owner;
         attack = 10;
+
+        setupRules();
         reset();
     }
 
@@ -20,7 +22,7 @@ namespace entities
 
     void Projectile::setThrust(int thrust)
     {
-        this->thrust = thrust;
+        // this->thrust = thrust;
     }
 
     void Projectile::collideX()
@@ -34,6 +36,49 @@ namespace entities
     }
 
     void Projectile::reset()
+    {
+        velX = velY = 0;
+        atElapsedTime->SetValue(attackClock.getElapsedTime());
+    }
+
+    void Projectile::moveX()
+    {
+        sprite->move(velX, 0);
+        x += velX;
+    }
+
+    void Projectile::moveY()
+    {
+        sprite->move(0, velY);
+        y += velY;
+    }
+
+    void Projectile::interact(characters::Character *character)
+    {
+        character->sufferAttack(this->attack);
+        reset();
+        atForceReset->SetValue(true);
+    }
+
+    void Projectile::setupRules()
+    {
+
+        RULE();
+        LCONDITION();
+        CEXP(atElapsedTime >= atResetTick)
+        OR
+            CEXP(atForceReset == true);
+        END_CONDITION;
+        ACTION();
+        INSTIGATE(
+            METHOD(
+                execReset();))
+        END_ACTION;
+        END_CONDITION;
+        END_RULE;
+    }
+
+    void Projectile::execReset()
     {
         if (!owner->getAlive())
             return;
@@ -53,23 +98,11 @@ namespace entities
 
         y = owner->getY();
         sprite->setPosition(x, y);
-    }
+        velY = 0;
 
-    void Projectile::moveX()
-    {
-        sprite->move(velX, 0);
-        x += velX;
-    }
-
-    void Projectile::moveY()
-    {
-        sprite->move(0, velY);
-        y += velY;
-    }
-
-    void Projectile::interact(characters::Character *character)
-    {
-        character->sufferAttack(this->attack);
-        reset();
+        attackClock.restart();
+        atElapsedTime->SetValue(sf::Time::Zero);
+        atForceReset->SetValue(false);
+        atResetTick->SetValue(sf::milliseconds(rand() % 2000 + 1000));
     }
 }

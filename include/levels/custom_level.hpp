@@ -40,4 +40,6 @@ public:
     json readJson(string path);
     void buildLevel();
     void clearRules();
+    void update();
+    void setupRules();
 };

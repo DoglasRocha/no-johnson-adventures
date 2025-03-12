@@ -4,6 +4,8 @@
 #include "../entities/obstacles/obstacle.hpp"
 #include "../entities/characters/character.hpp"
 #include "../entities/item/projectile.hpp"
+#include "../entities/item/potion.hpp"
+#include "../entities/item/item.hpp"
 
 #include <vector>
 #include <list>
@@ -63,5 +65,7 @@ namespace managers
         void clearLists();
         void deleteProjectile();
         Enemy *getNeutralizedEnemy();
+        void runProjectileColision(Projectile *projectilePtr);
+        void runPotionColision(Potion *potionPtr);
     };
 }

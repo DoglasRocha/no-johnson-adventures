@@ -25,6 +25,9 @@ namespace levels
         Player *player1Ptr, *player2Ptr;
         std::shared_ptr<BackgroundManager> background;
         int bigNoseCount = 0, batCount = 0;
+        NOP::SharedAttribute<int> atEnemyCount{NOP::BuildAttribute(-1)};
+        NOP::SharedAttribute<bool> atPlayerAlive{NOP::BuildAttribute(false)};
+        NOP::SharedAttribute<Enemy *> atEnemyNeutralizedPtr{NOP::BuildAttribute((Enemy *)nullptr)};
 
     public:
         Level(ColisionManager *colisionManager = nullptr,
@@ -44,7 +47,7 @@ namespace levels
             NOP::SharedAttribute<int> &atMousePositionY);
         void draw();
         void handle_colisions();
-        virtual void changeState(int option = 0) = 0;
+        virtual void changeState(int option = 0);
         void createPlatform(int xSize, int ySize, int posX, int posY);
         void createWall(int ySize, int posX, int posY);
         void createBigNose(int posX, int posY);
@@ -54,5 +57,7 @@ namespace levels
         void createMinotaur(int posX, int posY);
         void createProjectile(entities::characters::Minotaur *minotaurPtr);
         virtual void createPlatformWithRandomThingsAbove(int xSize, int ySize, int posX, int posY) = 0;
+        virtual void update() = 0;
+        virtual void setupRules() = 0;
     };
 }

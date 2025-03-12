@@ -55,32 +55,16 @@ Level1::Level1(ColisionManager *colisionManager, EventHandler *eventHandler, Pla
     createBat(3350, 600);
 
     background = std::make_shared<BackgroundManager>("pixel_art_forest/background.png");
+
+    atPlayerAlive->SetValue(player1Ptr->getAlive());
+    atEnemyNeutralizedPtr->SetValue(colisionManager->getNeutralizedEnemy());
+    atEnemyCount->SetValue(colisionManager->getEnemyVector().size());
+
+    setupRules();
 }
 
 Level1::~Level1()
 {
-}
-
-void Level1::changeState(int option)
-{
-    if (!player1Ptr->getAlive())
-    {
-        gamePtr->changeState(Game::States::RankingState, 0);
-        return;
-    }
-    else if (colisionManager->getEnemyVector().empty())
-    {
-        gamePtr->changeState(Game::States::Level2State, player2Ptr ? 1 : 0);
-        return;
-    }
-
-    Enemy *neutralizedEnemy = colisionManager->getNeutralizedEnemy();
-    if (neutralizedEnemy)
-    {
-        Item *item = new Potion(neutralizedEnemy);
-        colisionManager->addItem(item);
-        entityList.append(item);
-    }
 }
 
 void Level1::createPlatformWithRandomThingsAbove(int xSize, int ySize, int posX, int posY)
@@ -97,4 +81,53 @@ void Level1::createPlatformWithRandomThingsAbove(int xSize, int ySize, int posX,
         createBush(posX + (rand() % (xSize - 100)), posY);
         bushCount++;
     }
+}
+
+void Level1::update()
+{
+    atPlayerAlive->SetValue(player1Ptr->getAlive());
+    atEnemyCount->SetValue(colisionManager->getEnemyVector().size());
+    atEnemyNeutralizedPtr->SetValue(colisionManager->getNeutralizedEnemy());
+}
+
+void Level1::setupRules()
+{
+    RULE();
+    LCONDITION();
+    CEXP(atPlayerAlive == false);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::RankingState, 0);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atPlayerAlive == true)
+    AND CEXP(atEnemyCount == 0);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::Level2State, player2Ptr ? 1 : 0);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atEnemyNeutralizedPtr != (Enemy *)nullptr);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            Item *item = new Potion(atEnemyNeutralizedPtr->GetValue());
+            colisionManager->addItem(item);
+            entityList.append(item);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
 }

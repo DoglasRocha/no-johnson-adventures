@@ -15,6 +15,7 @@ public:
            Game *gamePtr = nullptr,
            Player *player2Ptr = nullptr);
     ~Level1();
-    void changeState(int option = 0);
     void createPlatformWithRandomThingsAbove(int xSize, int ySize, int posX, int posY);
+    void update();
+    void setupRules();
 };

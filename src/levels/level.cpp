@@ -30,7 +30,7 @@ namespace levels
         handle_colisions();
         eventHandler->handleEvents();
         draw();
-        changeState();
+        update();
     }
 
     void Level::setupEventHandling(
@@ -121,5 +121,9 @@ namespace levels
         if (newProjectile)
             entityList.append(newProjectile),
                 colisionManager->addItem(newProjectile);
+    }
+
+    void Level::changeState(int option)
+    {
     }
 }

@@ -37,6 +37,11 @@ CustomLevel::CustomLevel(ColisionManager *colisionManager,
     pathText.setOutlineThickness(10);
     pathText.setPosition(Vector2f(50, 400));
     pathText.setString("Digite o caminho para o arquivo JSON de descricao de fase:");
+
+    atPlayerAlive->SetValue(player1Ptr->getAlive());
+    atEnemyNeutralizedPtr->SetValue(colisionManager->getNeutralizedEnemy());
+
+    setupRules();
 }
 
 CustomLevel::~CustomLevel()
@@ -58,7 +63,7 @@ void CustomLevel::run()
         handle_colisions();
         eventHandler->handleEvents();
         draw();
-        changeState();
+        update();
     }
 }
 
@@ -245,6 +250,8 @@ void CustomLevel::buildLevel()
         player2Ptr->setY(playerPos["y"]);
         player2Ptr->getSprite()->setPosition(playerPos["x"], playerPos["y"]);
     }
+
+    atEnemyCount->SetValue(colisionManager->getEnemyVector().size());
 }
 
 void CustomLevel::clearRules()
@@ -253,4 +260,53 @@ void CustomLevel::clearRules()
     rl2->SetCondition(c1);
     rl3->SetCondition(c1);
     rl4->SetCondition(c1);
+}
+
+void CustomLevel::update()
+{
+    atPlayerAlive->SetValue(player1Ptr->getAlive());
+    atEnemyCount->SetValue(colisionManager->getEnemyVector().size());
+    atEnemyNeutralizedPtr->SetValue(colisionManager->getNeutralizedEnemy());
+}
+
+void CustomLevel::setupRules()
+{
+    RULE();
+    LCONDITION();
+    CEXP(atPlayerAlive == false);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::RankingState, 0);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atPlayerAlive == true)
+    AND CEXP(atEnemyCount == 0);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            gamePtr->changeState(Game::States::Level2State, player2Ptr ? 1 : 0);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atEnemyNeutralizedPtr != (Enemy *)nullptr);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            Item *item = new Potion(atEnemyNeutralizedPtr->GetValue());
+            colisionManager->addItem(item);
+            entityList.append(item);))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
 }

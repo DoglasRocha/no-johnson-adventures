@@ -298,93 +298,11 @@ namespace managers
     {
         if (itemPtr->isProjectile())
         {
-            itemPtr->setVelY(gravity * 2);
-            FloatRect projectileBounds = itemPtr->getSprite()->getGlobalBounds();
-
-            Colision colisionWithPlayer1 = entityColisionWithFloatRect(player, projectileBounds);
-            if (colisionWithPlayer1.down || colisionWithPlayer1.up || colisionWithPlayer1.left || colisionWithPlayer1.right)
-            {
-                if (colisionWithPlayer1.right)
-                    player->pushX(-1);
-                else
-                    player->pushX(1);
-                itemPtr->reset();
-
-                player->sufferAttack(itemPtr->getAttack());
-            }
-
-            if (player2)
-            {
-                Colision ColisionWithPlayer2 = entityColisionWithFloatRect(player2, projectileBounds);
-                if (ColisionWithPlayer2.down || ColisionWithPlayer2.up || ColisionWithPlayer2.left || ColisionWithPlayer2.right)
-                {
-                    if (ColisionWithPlayer2.right)
-                        player2->pushX(-1);
-                    else
-                        player2->pushX(1);
-                    itemPtr->reset();
-
-                    player2->sufferAttack(itemPtr->getAttack());
-                }
-            }
-
-            itemPtr->moveX();
-            itemPtr->moveY();
-
-            std::list<Obstacle *>::iterator it;
-            for (it = obstacleList.begin(); it != obstacleList.end(); it++)
-            {
-                FloatRect obstacleBounds = (*it)->getShape()->getGlobalBounds();
-                Colision colisionWithObstacle = entityColisionWithFloatRect(itemPtr, obstacleBounds);
-                if (colisionWithObstacle.down || colisionWithObstacle.up || colisionWithObstacle.left || colisionWithObstacle.right)
-                    itemPtr->reset();
-            }
+            runProjectileColision(dynamic_cast<Projectile *>(itemPtr));
         }
         else if (itemPtr->isConsumable())
         {
-            FloatRect itemBounds = itemPtr->getGlobalBounds();
-            Colision colisionWithPlayer1 = entityColisionWithFloatRect(player, itemBounds);
-            if (colisionWithPlayer1.down || colisionWithPlayer1.up || colisionWithPlayer1.left || colisionWithPlayer1.right)
-            {
-                itemPtr->interact(player);
-                itemVector.erase(std::find(itemVector.begin(), itemVector.end(), itemPtr));
-            }
-
-            if (player2)
-            {
-                Colision ColisionWithPlayer2 = entityColisionWithFloatRect(player2, itemBounds);
-                if (ColisionWithPlayer2.down || ColisionWithPlayer2.up || ColisionWithPlayer2.left || ColisionWithPlayer2.right)
-                {
-                    itemPtr->interact(player2);
-                    itemVector.erase(std::find(itemVector.begin(), itemVector.end(), itemPtr));
-                }
-            }
-
-            Colision colisionSum;
-
-            // colisão com obstaculo
-            for (auto &obstacle : obstacleList)
-            {
-                FloatRect obstacleBounds = obstacle->getShape()->getGlobalBounds();
-
-                Colision colision = entityColisionWithFloatRect(itemPtr, obstacleBounds);
-                colisionSum.up = colisionSum.up || colision.up;
-                colisionSum.down = colisionSum.down || colision.down;
-                colisionSum.left = colisionSum.left || colision.left;
-                colisionSum.right = colisionSum.right || colision.right;
-            }
-
-            if (!colisionSum.left && !colisionSum.right)
-                itemPtr->moveX();
-            else
-                itemPtr->collideX();
-
-            if (!colisionSum.up && !colisionSum.down)
-                itemPtr->moveY(), applyGravity(itemPtr);
-            else
-            {
-                itemPtr->collideY();
-            }
+            runPotionColision(dynamic_cast<Potion *>(itemPtr));
         }
     }
 
@@ -407,5 +325,99 @@ namespace managers
         Enemy *temp = neutralizedEnemy;
         neutralizedEnemy = nullptr;
         return temp;
+    }
+
+    void ColisionManager::runProjectileColision(Projectile *projectilePtr)
+    {
+        applyGravity(projectilePtr);
+        FloatRect projectileBounds = projectilePtr->getSprite()->getGlobalBounds();
+
+        Colision colisionWithPlayer1 = entityColisionWithFloatRect(player, projectileBounds);
+        if (colisionWithPlayer1.down || colisionWithPlayer1.up || colisionWithPlayer1.left || colisionWithPlayer1.right)
+        {
+            if (colisionWithPlayer1.right)
+                player->pushX(-1);
+            else
+                player->pushX(1);
+            projectilePtr->reset();
+
+            player->sufferAttack(projectilePtr->getAttack());
+        }
+
+        if (player2)
+        {
+            Colision ColisionWithPlayer2 = entityColisionWithFloatRect(player2, projectileBounds);
+            if (ColisionWithPlayer2.down || ColisionWithPlayer2.up || ColisionWithPlayer2.left || ColisionWithPlayer2.right)
+            {
+                if (ColisionWithPlayer2.right)
+                    player2->pushX(-1);
+                else
+                    player2->pushX(1);
+                projectilePtr->reset();
+
+                player2->sufferAttack(projectilePtr->getAttack());
+            }
+        }
+
+        std::list<Obstacle *>::iterator it;
+        for (it = obstacleList.begin(); it != obstacleList.end(); it++)
+        {
+            if (!(*it)->getIsSolid())
+                continue;
+            FloatRect obstacleBounds = (*it)->getShape()->getGlobalBounds();
+            Colision colisionWithObstacle = entityColisionWithFloatRect(projectilePtr, obstacleBounds);
+            if (colisionWithObstacle.down || colisionWithObstacle.up || colisionWithObstacle.left || colisionWithObstacle.right)
+                projectilePtr->reset();
+        }
+
+        projectilePtr->moveX();
+        projectilePtr->moveY();
+    }
+
+    void ColisionManager::runPotionColision(Potion *potionPtr)
+    {
+        FloatRect itemBounds = potionPtr->getGlobalBounds();
+        Colision colisionWithPlayer1 = entityColisionWithFloatRect(player, itemBounds);
+        if (colisionWithPlayer1.down || colisionWithPlayer1.up || colisionWithPlayer1.left || colisionWithPlayer1.right)
+        {
+            potionPtr->interact(player);
+            itemVector.erase(std::find(itemVector.begin(), itemVector.end(), potionPtr));
+        }
+
+        if (player2)
+        {
+            Colision ColisionWithPlayer2 = entityColisionWithFloatRect(player2, itemBounds);
+            if (ColisionWithPlayer2.down || ColisionWithPlayer2.up || ColisionWithPlayer2.left || ColisionWithPlayer2.right)
+            {
+                potionPtr->interact(player2);
+                itemVector.erase(std::find(itemVector.begin(), itemVector.end(), potionPtr));
+            }
+        }
+
+        Colision colisionSum;
+
+        // colisão com obstaculo
+        for (auto &obstacle : obstacleList)
+        {
+            FloatRect obstacleBounds = obstacle->getShape()->getGlobalBounds();
+
+            Colision colision = entityColisionWithFloatRect(potionPtr, obstacleBounds);
+            colisionSum.up = colisionSum.up || colision.up;
+            colisionSum.down = colisionSum.down || colision.down;
+            colisionSum.left = colisionSum.left || colision.left;
+            colisionSum.right = colisionSum.right || colision.right;
+        }
+
+        if (!colisionSum.left && !colisionSum.right)
+            potionPtr->moveX();
+        else
+            potionPtr->collideX();
+
+        if (!colisionSum.up && !colisionSum.down)
+            potionPtr->moveY(), applyGravity(potionPtr);
+        else
+        {
+            potionPtr->collideY();
+        }
     }
 }
