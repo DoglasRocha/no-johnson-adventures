@@ -1,6 +1,7 @@
 #include "../../../../include/entities/characters/players/player.hpp"
 
 using namespace entities::characters;
+using namespace entities;
 
 Player::Player() : Character()
 {
@@ -8,11 +9,11 @@ Player::Player() : Character()
     this->attack = 20;
 
     font.loadFromFile("../assets/VCR_OSD_MONO.ttf");
+    shield = std::make_shared<Shield>(this);
 }
 
 Player::~Player()
 {
-    // Destructor implementation
 }
 
 void Player::collideX()
@@ -96,4 +97,9 @@ void Player::addScore(int score)
 int Player::getBaseLives()
 {
     return 100;
+}
+
+Shield *Player::getShield()
+{
+    return shield.get();
 }

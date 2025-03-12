@@ -125,4 +125,28 @@ void Player1::setupEventHandling(
     END_ACTION;
     END_CONDITION;
     END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atMouseButtonPressed == sf::Mouse::Button::Right);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->shield->activate(this->getDirection());))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atMouseButtonReleased == sf::Mouse::Button::Right);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->shield->deactivate();))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
 }

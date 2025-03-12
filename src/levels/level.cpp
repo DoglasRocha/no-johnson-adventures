@@ -13,9 +13,12 @@ namespace levels
         : colisionManager(colisionManager), eventHandler(eventHandler), player1Ptr(playerPtr), State(gamePtr), player2Ptr(player2Ptr)
     {
         entityList.append(player1Ptr);
+        entityList.append(player1Ptr->getShield());
+
         if (player2Ptr)
             entityList.append(player2Ptr);
         colisionManager->setPlayer(player1Ptr);
+        colisionManager->addItem(player1Ptr->getShield());
         colisionManager->setPlayer2(player2Ptr);
     }
 

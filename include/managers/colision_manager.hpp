@@ -6,6 +6,7 @@
 #include "../entities/item/projectile.hpp"
 #include "../entities/item/potion.hpp"
 #include "../entities/item/item.hpp"
+#include "../entities/item/shield.hpp"
 
 #include <vector>
 #include <list>
@@ -67,5 +68,6 @@ namespace managers
         Enemy *getNeutralizedEnemy();
         void runProjectileColision(Projectile *projectilePtr);
         void runPotionColision(Potion *potionPtr);
+        void runShieldColision(Shield *shieldPtr);
     };
 }

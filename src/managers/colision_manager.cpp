@@ -304,6 +304,10 @@ namespace managers
         {
             runPotionColision(dynamic_cast<Potion *>(itemPtr));
         }
+        else if (itemPtr->isShield())
+        {
+            runShieldColision(dynamic_cast<Shield *>(itemPtr));
+        }
     }
 
     void ColisionManager::clearLists()
@@ -419,5 +423,25 @@ namespace managers
         {
             potionPtr->collideY();
         }
+    }
+
+    void ColisionManager::runShieldColision(Shield *shieldPtr)
+    {
+        if (!shieldPtr->getIsActive())
+            return;
+
+        // colision with enemies
+        for (auto &enemy : enemyVector)
+        {
+            FloatRect shieldBounds = shieldPtr->getGlobalBounds();
+            Colision colisionWithEnemy = entityColisionWithFloatRect(enemy, shieldBounds);
+            if (colisionWithEnemy.down || colisionWithEnemy.up || colisionWithEnemy.left || colisionWithEnemy.right)
+            {
+                shieldPtr->interact(enemy);
+            }
+        }
+
+        shieldPtr->moveX();
+        shieldPtr->moveY();
     }
 }
