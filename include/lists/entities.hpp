@@ -5,6 +5,8 @@
 #ifndef JOGO_TECNICAS_PROGRAMACAO_LISTA_ENTIDADES_HPP
 #define JOGO_TECNICAS_PROGRAMACAO_LISTA_ENTIDADES_HPP
 #include "../entities/characters/players/player.hpp"
+#include "../entities/item/melee.hpp"
+#include "../entities/item/shield.hpp"
 #include "circular.hpp"
 #include "../entities/entity.hpp"
 
@@ -38,12 +40,18 @@ namespace lists
             Node *aux;
             for (aux = head; aux != tail; aux = aux->getNext())
             {
-                if (!dynamic_cast<Player *>(aux->getData()))
+                if (
+                    !dynamic_cast<Player *>(aux->getData()) &&
+                    !dynamic_cast<Melee *>(aux->getData()) &&
+                    !dynamic_cast<Shield *>(aux->getData()))
                 {
                     delete aux->getData();
                 }
             }
-            if (!dynamic_cast<Player *>(aux->getData()))
+            if (
+                !dynamic_cast<Player *>(aux->getData()) &&
+                !dynamic_cast<Melee *>(aux->getData()) &&
+                !dynamic_cast<Shield *>(aux->getData()))
                 delete aux->getData();
         }
     };

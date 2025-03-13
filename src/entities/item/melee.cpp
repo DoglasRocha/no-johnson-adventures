@@ -9,7 +9,7 @@ namespace entities
         this->attack = 1;
         this->owner = owner;
 
-        scaleSprite(2, 2);
+        scaleSprite(2.5, 2.5);
         setOriginToCenter();
 
         this->x = owner->getX();
@@ -39,7 +39,7 @@ namespace entities
 
     void Melee::moveX()
     {
-        int offset = direction == "left" ? -60 : 60;
+        int offset = direction == "left" ? -75 : 75;
         this->x = this->owner->getX() + offset;
         this->sprite->setPosition(this->x, this->y);
     }

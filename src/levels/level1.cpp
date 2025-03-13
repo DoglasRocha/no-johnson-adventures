@@ -119,7 +119,8 @@ void Level1::setupRules()
 
     RULE();
     LCONDITION();
-    CEXP(atEnemyNeutralizedPtr != (Enemy *)nullptr);
+    CEXP(atEnemyNeutralizedPtr != (Enemy *)nullptr)
+    AND CEXP(atEnemyCount > 0);
     END_CONDITION;
     ACTION();
     INSTIGATE(
