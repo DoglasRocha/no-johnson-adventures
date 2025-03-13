@@ -14,9 +14,11 @@ CustomLevel::CustomLevel(ColisionManager *colisionManager,
                          string path)
     : Level(colisionManager, eventHandler, playerPtr, gamePtr, player2Ptr)
 {
+
     this->path = path;
     if (path != "")
     {
+        playerInput = path;
         buildLevel();
         return;
     }

@@ -31,7 +31,7 @@ namespace entities::characters
             NOP::SharedAttribute<sf::Mouse::Button> &atMouseButtonReleased,
             NOP::SharedAttribute<int> &atMousePositionX,
             NOP::SharedAttribute<int> &atMousePositionY) = 0;
-        void collideX();
+        virtual void collideX();
         virtual void moveX();
         void pushX(const int direction);
         void pushY(bool up);

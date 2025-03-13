@@ -4,6 +4,7 @@
 #include "managers/colision_manager.hpp"
 #include "entities/characters/players/player1.hpp"
 #include "entities/characters/players/player2.hpp"
+#include "entities/characters/players/test_player.hpp"
 #include "utils/state.hpp"
 #include <memory>
 #include <libnop/framework.h>
@@ -24,7 +25,8 @@ public:
         MenuState,
         PlayerMenuState,
         Exit,
-        Blank
+        Blank,
+        _TEST
     };
 
 private:
@@ -33,6 +35,7 @@ private:
     std::shared_ptr<ColisionManager> colisionManager;
     Player1 CJ;
     Player2 BigSmoke;
+    TestPlayer *testPlayer;
     State *formerState, *currentState;
     NOP::SharedAttribute<States> atNewState{NOP::BuildAttribute(States::Blank)};
     int param;
@@ -46,6 +49,7 @@ public:
     void goToLevel1(int coop);
     void goToLevel2(int coop);
     void goToCustomLevel(int coop);
+    void goToTestLevel();
     void goToRanking();
     void goToMenu();
     void goToPlayerMenu(int level);

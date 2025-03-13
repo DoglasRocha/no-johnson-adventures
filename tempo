@@ -1,4 +1,9 @@
 PON:
-    tempo atirar: 25min
-    escudo: 36min
-    arma corpo a corpo: 22min
+    tempo atirar: 25min, 3
+    escudo: 36min, 2
+    arma corpo a corpo: 22min, 1
+
+POO:
+    tempo atirar: 16min, 2
+    escudo: 20min, 2
+    arma corpo a corpo: 15min, 1

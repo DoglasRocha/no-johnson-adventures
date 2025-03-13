@@ -4,6 +4,7 @@
 #include "../include/levels/level1.hpp"
 #include "../include/levels/level2.hpp"
 #include "../include/levels/custom_level.hpp"
+#include "../include/levels/test_level.hpp"
 #include "../include/ui/player_menu.hpp"
 #include "../include/ui/ranking.hpp"
 
@@ -23,7 +24,8 @@ Game::
     Game() : graphicManager(GraphicManager::getInstance()),
              eventHandler(EventHandler::getInstance()),
              colisionManager(ColisionManager::getInstance()),
-             formerState(nullptr), currentState(nullptr), param(-1)
+             formerState(nullptr), currentState(nullptr), param(-1),
+             testPlayer(nullptr)
 {
     srand(time(NULL));
     Ente::setGraphicManager(graphicManager);
@@ -37,7 +39,8 @@ Game::
     colisionManager->setPlayer2(&BigSmoke);
 
     setupRules();
-    this->changeState(States::MenuState, 0);
+    // this->changeState(States::MenuState, 0);
+    this->changeState(States::_TEST, 0);
 
     while (graphicManager->checkWindowOpen())
     {
@@ -55,6 +58,8 @@ Game::
     GraphicManager::deleteInstance();
     // delete formerState;
     delete currentState;
+    if (testPlayer != nullptr)
+        delete testPlayer;
 }
 
 int Game::getScore()
@@ -83,6 +88,14 @@ void Game::goToCustomLevel(int coop)
     CustomLevel *customLevel = new CustomLevel(colisionManager.get(), eventHandler.get(), &CJ, this, coop ? &BigSmoke : nullptr);
     currentState = customLevel;
     eventHandler->subscribe(customLevel);
+}
+
+void Game::goToTestLevel()
+{
+    testPlayer = new TestPlayer(this);
+    TestLevel *testLevel = new TestLevel(colisionManager.get(), eventHandler.get(), testPlayer, this);
+    currentState = testLevel;
+    eventHandler->subscribe(testLevel);
 }
 
 void Game::goToRanking()
@@ -208,6 +221,18 @@ void Game::setupRules()
     INSTIGATE(
         METHOD(
             graphicManager->closeWindow();))
+    END_ACTION;
+    END_CONDITION;
+    END_RULE;
+
+    RULE();
+    LCONDITION();
+    CEXP(atNewState == States::_TEST);
+    END_CONDITION;
+    ACTION();
+    INSTIGATE(
+        METHOD(
+            this->goToTestLevel();))
     END_ACTION;
     END_CONDITION;
     END_RULE;

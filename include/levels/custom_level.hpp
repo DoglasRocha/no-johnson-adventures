@@ -26,7 +26,7 @@ public:
                 Player *player2Ptr = nullptr,
                 string path = "");
     ~CustomLevel();
-    void run();
+    virtual void run();
     void changeState(int option = 0);
     void createPlatformWithRandomThingsAbove(int xSize, int ySize, int posX, int posY);
     void setupEventHandling(
