@@ -68,6 +68,7 @@ namespace managers
         Enemy *getNeutralizedEnemy();
         void runProjectileColision(Projectile *projectilePtr);
         void runPotionColision(Potion *potionPtr);
-        void runShieldColision(Shield *shieldPtr);
+        void runShieldOrMeleeColision(Shield *shieldPtr);
+        void runShieldOrMeleeColision(Melee *meleePtr);
     };
 }

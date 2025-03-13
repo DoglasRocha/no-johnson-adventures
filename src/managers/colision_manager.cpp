@@ -306,7 +306,11 @@ namespace managers
         }
         else if (itemPtr->isShield())
         {
-            runShieldColision(dynamic_cast<Shield *>(itemPtr));
+            runShieldOrMeleeColision(dynamic_cast<Shield *>(itemPtr));
+        }
+        else if (itemPtr->isMelee())
+        {
+            runShieldOrMeleeColision(dynamic_cast<Melee *>(itemPtr));
         }
     }
 
@@ -425,7 +429,7 @@ namespace managers
         }
     }
 
-    void ColisionManager::runShieldColision(Shield *shieldPtr)
+    void ColisionManager::runShieldOrMeleeColision(Shield *shieldPtr)
     {
         if (!shieldPtr->getIsActive())
             return;
@@ -443,5 +447,25 @@ namespace managers
 
         shieldPtr->moveX();
         shieldPtr->moveY();
+    }
+
+    void ColisionManager::runShieldOrMeleeColision(Melee *meleePtr)
+    {
+        if (!meleePtr->getIsActive())
+            return;
+
+        // colision with enemies
+        for (auto &enemy : enemyVector)
+        {
+            FloatRect shieldBounds = meleePtr->getGlobalBounds();
+            Colision colisionWithEnemy = entityColisionWithFloatRect(enemy, shieldBounds);
+            if (colisionWithEnemy.down || colisionWithEnemy.up || colisionWithEnemy.left || colisionWithEnemy.right)
+            {
+                meleePtr->interact(enemy);
+            }
+        }
+
+        meleePtr->moveX();
+        meleePtr->moveY();
     }
 }

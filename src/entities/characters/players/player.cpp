@@ -10,6 +10,7 @@ Player::Player() : Character()
 
     font.loadFromFile("../assets/VCR_OSD_MONO.ttf");
     shield = std::make_shared<Shield>(this);
+    melee = std::make_shared<Melee>(this);
 }
 
 Player::~Player()
@@ -102,4 +103,9 @@ int Player::getBaseLives()
 Shield *Player::getShield()
 {
     return shield.get();
+}
+
+Melee *Player::getMelee()
+{
+    return melee.get();
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "../character.hpp"
 #include "../../item/shield.hpp"
+#include "../../item/melee.hpp"
 #include <SFML/Graphics.hpp>
 
 using entities::characters::Character;
@@ -15,6 +16,7 @@ namespace entities::characters
 
     protected:
         std::shared_ptr<Shield> shield;
+        std::shared_ptr<Melee> melee;
         Text lifeBarText;
         Font font;
 
@@ -42,5 +44,6 @@ namespace entities::characters
         void addScore(int score);
         int getBaseLives();
         Shield *getShield();
+        Melee *getMelee();
     };
 }

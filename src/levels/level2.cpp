@@ -114,7 +114,7 @@ void Level2::setupRules()
     ACTION();
     INSTIGATE(
         METHOD(
-            gamePtr->changeState(Game::States::Level2State, player2Ptr ? 1 : 0);))
+            gamePtr->changeState(Game::States::RankingState, 0);))
     END_ACTION;
     END_CONDITION;
     END_RULE;

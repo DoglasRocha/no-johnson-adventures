@@ -14,11 +14,15 @@ namespace levels
     {
         entityList.append(player1Ptr);
         entityList.append(player1Ptr->getShield());
-
-        if (player2Ptr)
-            entityList.append(player2Ptr);
+        entityList.append(player1Ptr->getMelee());
         colisionManager->setPlayer(player1Ptr);
         colisionManager->addItem(player1Ptr->getShield());
+        colisionManager->addItem(player1Ptr->getMelee());
+
+        if (player2Ptr)
+            entityList.append(player2Ptr),
+                colisionManager->addItem(player2Ptr->getShield()),
+                colisionManager->addItem(player2Ptr->getMelee());
         colisionManager->setPlayer2(player2Ptr);
     }
 

@@ -1,14 +1,15 @@
-#include "../../../include/entities/item/shield.hpp"
+#include "../../../include/entities/item/melee.hpp"
 
 namespace entities
 {
-    Shield::Shield(characters::Character *owner) : Item("shield", "../assets/shield.png")
+    Melee::Melee(characters::Character *owner) : Item("melee", "../assets/flower.png")
     {
         shouldDraw = false;
-        this->attack = 0;
+        isActive = false;
+        this->attack = 1;
         this->owner = owner;
 
-        scaleSprite(0.8, 0.8);
+        scaleSprite(2, 2);
         setOriginToCenter();
 
         this->x = owner->getX();
@@ -16,59 +17,58 @@ namespace entities
         this->sprite->setPosition(this->x, this->y);
     }
 
-    Shield::~Shield()
+    Melee::~Melee()
     {
     }
 
-    void Shield::setThrust(int thrust)
+    void Melee::setThrust(int thrust)
     {
     }
 
-    void Shield::collideX()
+    void Melee::collideX()
     {
     }
 
-    void Shield::collideY()
+    void Melee::collideY()
     {
     }
 
-    void Shield::reset()
+    void Melee::reset()
     {
     }
 
-    void Shield::moveX()
+    void Melee::moveX()
     {
         int offset = direction == "left" ? -60 : 60;
         this->x = this->owner->getX() + offset;
         this->sprite->setPosition(this->x, this->y);
     }
 
-    void Shield::moveY()
+    void Melee::moveY()
     {
         this->y = this->owner->getY();
         this->sprite->setPosition(this->x, this->y);
     }
 
-    void Shield::interact(characters::Character *character)
+    void Melee::interact(characters::Character *character)
     {
-        character->collideX();
-        character->collideY();
+        character->sufferAttack(this->attack);
     }
 
-    void Shield::activate(std::string direction)
+    void Melee::activate(std::string direction)
     {
         shouldDraw = true;
         this->direction = direction;
         isActive = true;
     }
 
-    void Shield::deactivate()
+    void Melee::deactivate()
     {
         shouldDraw = false;
         isActive = false;
     }
 
-    bool Shield::getIsActive()
+    bool Melee::getIsActive()
     {
         return isActive;
     }
